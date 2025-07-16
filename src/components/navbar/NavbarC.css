@@ -1,0 +1,67 @@
+.navbar-transparente {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+  top: 0;
+}
+
+.logo-navbar {
+  height: 80px;
+  width: auto;
+}
+
+.fuente-navbar {
+  font-family: "Oswald", sans-serif;
+  font-weight: 400;
+  font-size: 21px;
+}
+
+.fuente-navbar,
+.fuente-navbar:focus,
+.fuente-navbar:visited,
+.fuente-navbar:active {
+  color: var(--hds-blanco) !important;
+  text-decoration: none;
+}
+
+.fuente-navbar:hover {
+  color: var(--hds-gris-claro) !important;
+}
+
+/* Titulo del Dropdown */
+
+.navbar-transparente .dropdown-toggle {
+  font-family: "Oswald", sans-serif;
+  font-weight: 400;
+  font-size: 21px;
+  color: var(--hds-blanco) !important;
+}
+
+.navbar-transparente .dropdown-toggle:hover {
+  color: var(--hds-gris-claro) !important;
+}
+/*  */
+
+/* Menu desplegable */
+
+.dropdown-menu {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0px;
+  border-top: 2px solid var(--hds-rojo);
+  padding: 0px;
+}
+
+.dropdown-item {
+  color: var(--hds-blanco);
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  padding-bottom: 8px;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--hds-blanco);
+}
+/*  */

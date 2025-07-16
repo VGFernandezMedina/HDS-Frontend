@@ -1,0 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+
+:root {
+  --hds-rojo: #ff1e1e;
+  --hds-negro: #000000;
+  --hds-blanco: #ffffff;
+  --hds-gris-oscuro: #4a4a4a;
+  --hds-gris-claro: #bdbdbd;
+}
