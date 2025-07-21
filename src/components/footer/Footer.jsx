@@ -8,7 +8,7 @@ import {
   Row,
 } from "react-bootstrap";
 import "./Footer.css";
-import logoFooter from "/public/favicon.png";
+import logoFooter from "/favicon.png";
 import {
   FaArrowRight,
   FaDiscord,
