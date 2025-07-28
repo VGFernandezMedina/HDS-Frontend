@@ -44,7 +44,7 @@ const Equipos = () => {
   ];
 
   return (
-    <Container fluid className="equipos px-0 pt-2">
+    <Container fluid className="equipos pt-2">
       <div className="separador text-center py-2">
         <h1>
           HDS Esports - <span className="rojo">Nuestros Equipos</span>
