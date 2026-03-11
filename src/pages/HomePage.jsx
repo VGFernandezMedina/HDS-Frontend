@@ -2,6 +2,7 @@ import "./HomePage.css";
 import CarouselC from "../components/carousel/CarouselC";
 import Equipos from "../components/equipos/Equipos";
 import Noticias from "../components/noticias/Noticias";
+import Marcas from "../components/marcas/Marcas";
 
 const HomePage = () => {
   return (
@@ -9,6 +10,7 @@ const HomePage = () => {
       <CarouselC />
       <Equipos />
       <Noticias />
+      <Marcas />
     </div>
   );
 };
