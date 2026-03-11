@@ -17,7 +17,7 @@ const NavbarC = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link className="fuente-navbar" href="#">
+              <Nav.Link className="fuente-navbar" href="/">
                 Inicio
               </Nav.Link>
               <Nav.Link className="fuente-navbar" href="#">
@@ -40,10 +40,10 @@ const NavbarC = () => {
               </NavDropdown>
             </Nav>
             <Nav>
-              <Nav.Link className="fuente-navbar" href="#">
+              <Nav.Link className="fuente-navbar" href="/login">
                 Iniciar Sesión
               </Nav.Link>
-              <Nav.Link className="fuente-navbar" href="#">
+              <Nav.Link className="fuente-navbar" href="/register">
                 Registrarse
               </Nav.Link>
             </Nav>
