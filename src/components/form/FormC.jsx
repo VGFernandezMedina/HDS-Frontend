@@ -2,21 +2,27 @@ import { Button, Container, Form } from "react-bootstrap";
 import "./FormC.css";
 import { useState } from "react";
 
-const FormC = () => {
-  const [nombreUsuario, setNombreUsuario] = useState("");
+const FormC = ({ idPage }) => {
+  const [formulario, setFormulario] = useState({
+    nombreUsuario: "",
+    emailUsuario: "",
+    contraseniaUsuario: "",
+    repContraseniaUsuario: "",
+  });
+  /*   const [nombreUsuario, setNombreUsuario] = useState("");
   const [emailUsuario, setEmailUsuario] = useState("");
   const [contraseniaUsuario, setContraseniaUsuario] = useState("");
-  const [repContraseniaUsuario, setRepContraseniaUsuario] = useState("");
+  const [repContraseniaUsuario, setRepContraseniaUsuario] = useState(""); */
   const [errores, setErrores] = useState({});
 
   const handleClickRegisterForm = (ev) => {
     ev.preventDefault();
     const nuevosErrores = {};
 
-    const nombre = nombreUsuario.trim();
-    const email = emailUsuario.trim().toLowerCase();
-    const contrasenia = contraseniaUsuario.trim();
-    const repContrasenia = repContraseniaUsuario.trim();
+    const nombre = formulario.nombreUsuario.trim();
+    const email = formulario.emailUsuario.trim().toLowerCase();
+    const contrasenia = formulario.contraseniaUsuario.trim();
+    const repContrasenia = formulario.repContraseniaUsuario.trim();
 
     if (!nombre) {
       nuevosErrores.nombreUsuario = "El nombre es obligatorio";
@@ -61,22 +67,44 @@ const FormC = () => {
       setErrores(nuevosErrores);
       return;
     }
+    setErrores({});
+
+    alert("El usuario fue creado con éxito");
+    setFormulario({
+      nombreUsuario: "",
+      emailUsuario: "",
+      contraseniaUsuario: "",
+      repContraseniaUsuario: "",
+    });
+  };
+
+  const handleChangeRegisterForm = (ev) => {
+    setFormulario({ ...formulario, [ev.target.name]: ev.target.value });
+  };
+
+  const handleChangeLoginForm = (ev) => {
+    ev.preventDefault();
   };
 
   return (
     <>
       <Container className="d-flex justify-content-center my-5">
-        <Form noValidate onSubmit={handleClickRegisterForm}>
+        <Form
+          noValidate
+          onSubmit={
+            idPage === "register"
+              ? handleClickRegisterForm
+              : handleChangeLoginForm
+          }
+        >
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Nombre de usuario </Form.Label>
             <Form.Control
               type="text"
               placeholder="Nombre"
-              value={nombreUsuario}
-              onChange={(ev) => {
-                setNombreUsuario(ev.target.value);
-                setErrores((prev) => ({ ...prev, nombreUsuario: null }));
-              }}
+              name="nombreUsuario"
+              value={formulario.nombreUsuario}
+              onChange={handleChangeRegisterForm}
               isInvalid={!!errores.nombreUsuario}
               required
             />
@@ -85,34 +113,32 @@ const FormC = () => {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Correo </Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Correo"
-              value={emailUsuario}
-              onChange={(ev) => {
-                setEmailUsuario(ev.target.value);
-                setErrores((prev) => ({ ...prev, emailUsuario: null }));
-              }}
-              isInvalid={!!errores.emailUsuario}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              {errores.emailUsuario}
-            </Form.Control.Feedback>
-          </Form.Group>
+          {idPage === "register" && (
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Correo </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Correo"
+                name="emailUsuario"
+                value={formulario.emailUsuario}
+                onChange={handleChangeRegisterForm}
+                isInvalid={!!errores.emailUsuario}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                {errores.emailUsuario}
+              </Form.Control.Feedback>
+            </Form.Group>
+          )}
 
           <Form.Group className="mb-3" controlId="formBasicPassword1">
             <Form.Label>Contraseña</Form.Label>
             <Form.Control
               type="password"
               placeholder="Contraseña"
-              value={contraseniaUsuario}
-              onChange={(ev) => {
-                setContraseniaUsuario(ev.target.value);
-                setErrores((prev) => ({ ...prev, contraseniaUsuario: null }));
-              }}
+              name="contraseniaUsuario"
+              value={formulario.contraseniaUsuario}
+              onChange={handleChangeRegisterForm}
               isInvalid={!!errores.contraseniaUsuario}
               required
             />
@@ -121,29 +147,26 @@ const FormC = () => {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword2">
-            <Form.Label>Repetir contraseña</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Repetir contraseña"
-              value={repContraseniaUsuario}
-              onChange={(ev) => {
-                setRepContraseniaUsuario(ev.target.value);
-                setErrores((prev) => ({
-                  ...prev,
-                  repContraseniaUsuario: null,
-                }));
-              }}
-              isInvalid={!!errores.repContraseniaUsuario}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              {errores.repContraseniaUsuario}
-            </Form.Control.Feedback>
-          </Form.Group>
+          {idPage === "register" && (
+            <Form.Group className="mb-3" controlId="formBasicPassword2">
+              <Form.Label>Repetir contraseña</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Repetir contraseña"
+                name="repContraseniaUsuario"
+                value={formulario.repContraseniaUsuario}
+                onChange={handleChangeRegisterForm}
+                isInvalid={!!errores.repContraseniaUsuario}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                {errores.repContraseniaUsuario}
+              </Form.Control.Feedback>
+            </Form.Group>
+          )}
 
           <Button variant="primary" type="submit">
-            Enviar
+            {idPage === "register" ? "Registrarme" : "Iniciar sesión"}
           </Button>
         </Form>
       </Container>

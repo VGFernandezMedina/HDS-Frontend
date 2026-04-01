@@ -1,7 +1,9 @@
+import FormC from "../components/form/FormC";
+
 const LoginPage = () => {
   return (
     <>
-      <div>Login</div>
+      <FormC idPage="login" />
     </>
   );
 };
