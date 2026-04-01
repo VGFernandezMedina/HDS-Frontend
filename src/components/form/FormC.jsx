@@ -1,0 +1,177 @@
+import { Button, Container, Form } from "react-bootstrap";
+import "./FormC.css";
+import { useState } from "react";
+
+const FormC = ({ idPage }) => {
+  const [formulario, setFormulario] = useState({
+    nombreUsuario: "",
+    emailUsuario: "",
+    contraseniaUsuario: "",
+    repContraseniaUsuario: "",
+  });
+  /*   const [nombreUsuario, setNombreUsuario] = useState("");
+  const [emailUsuario, setEmailUsuario] = useState("");
+  const [contraseniaUsuario, setContraseniaUsuario] = useState("");
+  const [repContraseniaUsuario, setRepContraseniaUsuario] = useState(""); */
+  const [errores, setErrores] = useState({});
+
+  const handleClickRegisterForm = (ev) => {
+    ev.preventDefault();
+    const nuevosErrores = {};
+
+    const nombre = formulario.nombreUsuario.trim();
+    const email = formulario.emailUsuario.trim().toLowerCase();
+    const contrasenia = formulario.contraseniaUsuario.trim();
+    const repContrasenia = formulario.repContraseniaUsuario.trim();
+
+    if (!nombre) {
+      nuevosErrores.nombreUsuario = "El nombre es obligatorio";
+    } else if (nombre.length < 3 || nombre.length > 40) {
+      nuevosErrores.nombreUsuario =
+        "El nombre debe tener entre 3 y 40 caracteres";
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/.test(nombre)) {
+      nuevosErrores.nombreUsuario =
+        "El nombre solo puede contener letras y espacios";
+    }
+
+    if (!email) {
+      nuevosErrores.emailUsuario = "El correo es obligatorio";
+    } else if (email.length < 5 || email.length > 80) {
+      nuevosErrores.emailUsuario = "El correo tiene una longitud inválida";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      nuevosErrores.emailUsuario = "Formato de correo inválido";
+    }
+
+    if (!contrasenia) {
+      nuevosErrores.contraseniaUsuario = "La contraseña es obligatoria";
+    } else if (contrasenia.length < 8) {
+      nuevosErrores.contraseniaUsuario =
+        "La contraseña debe tener al menos 8 caracteres";
+    } else if (!/[A-Z]/.test(contrasenia)) {
+      nuevosErrores.contraseniaUsuario =
+        "Debe contener al menos una letra mayúscula";
+    } else if (!/[a-z]/.test(contrasenia)) {
+      nuevosErrores.contraseniaUsuario =
+        "Debe contener al menos una letra minúscula";
+    } else if (!/[0-9]/.test(contrasenia)) {
+      nuevosErrores.contraseniaUsuario = "Debe contener al menos un número";
+    }
+
+    if (!repContrasenia) {
+      nuevosErrores.repContraseniaUsuario = "Debes repetir la contraseña";
+    } else if (repContrasenia !== contrasenia) {
+      nuevosErrores.repContraseniaUsuario = "Las contraseñas no coinciden";
+    }
+
+    if (Object.keys(nuevosErrores).length > 0) {
+      setErrores(nuevosErrores);
+      return;
+    }
+    setErrores({});
+
+    alert("El usuario fue creado con éxito");
+    setFormulario({
+      nombreUsuario: "",
+      emailUsuario: "",
+      contraseniaUsuario: "",
+      repContraseniaUsuario: "",
+    });
+  };
+
+  const handleChangeRegisterForm = (ev) => {
+    setFormulario({ ...formulario, [ev.target.name]: ev.target.value });
+  };
+
+  const handleChangeLoginForm = (ev) => {
+    ev.preventDefault();
+  };
+
+  return (
+    <>
+      <Container className="d-flex justify-content-center my-5">
+        <Form
+          noValidate
+          onSubmit={
+            idPage === "register"
+              ? handleClickRegisterForm
+              : handleChangeLoginForm
+          }
+        >
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Label>Nombre de usuario </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Nombre"
+              name="nombreUsuario"
+              value={formulario.nombreUsuario}
+              onChange={handleChangeRegisterForm}
+              isInvalid={!!errores.nombreUsuario}
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              {errores.nombreUsuario}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          {idPage === "register" && (
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Correo </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Correo"
+                name="emailUsuario"
+                value={formulario.emailUsuario}
+                onChange={handleChangeRegisterForm}
+                isInvalid={!!errores.emailUsuario}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                {errores.emailUsuario}
+              </Form.Control.Feedback>
+            </Form.Group>
+          )}
+
+          <Form.Group className="mb-3" controlId="formBasicPassword1">
+            <Form.Label>Contraseña</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Contraseña"
+              name="contraseniaUsuario"
+              value={formulario.contraseniaUsuario}
+              onChange={handleChangeRegisterForm}
+              isInvalid={!!errores.contraseniaUsuario}
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              {errores.contraseniaUsuario}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          {idPage === "register" && (
+            <Form.Group className="mb-3" controlId="formBasicPassword2">
+              <Form.Label>Repetir contraseña</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Repetir contraseña"
+                name="repContraseniaUsuario"
+                value={formulario.repContraseniaUsuario}
+                onChange={handleChangeRegisterForm}
+                isInvalid={!!errores.repContraseniaUsuario}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                {errores.repContraseniaUsuario}
+              </Form.Control.Feedback>
+            </Form.Group>
+          )}
+
+          <Button variant="primary" type="submit">
+            {idPage === "register" ? "Registrarme" : "Iniciar sesión"}
+          </Button>
+        </Form>
+      </Container>
+    </>
+  );
+};
+
+export default FormC;
