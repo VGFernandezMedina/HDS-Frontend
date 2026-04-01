@@ -1,27 +1,26 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children, rol }) => {
-  const navigate = useNavigate();
-  const token = JSON.parse(localStorage.getitem("token")) || null;
-  const rolUsuario = JSON.parse(localStorage.getitem("rol")) || null;
+  // children son los componentes hijos que envuelve en el App.jsx
+  const token = JSON.parse(localStorage.getItem("token")) || null;
+  const rolUsuario = JSON.parse(localStorage.getItem("rol")) || null;
 
+  // Si no está logueado
   if (!token) {
-    setTimeout(() => {
-      navigate("/");
-    }, 100);
-  } else {
-    if (rol === rolUsuario) {
-      return children;
+    return <Navigate to="/" />;
+  }
+
+  // Si se requiere un rol y no coincide
+  if (rol && rol !== rolUsuario) {
+    if (rolUsuario === "usuario") {
+      return <Navigate to="/user" />;
     } else {
-      if (rolUsuario === "usuario") {
-        setTimeout(() => {
-          navigate("/user");
-        }, 100);
-      } else {
-        return children;
-      }
+      return <Navigate to="/admin" />;
     }
   }
+
+  // Si todo está OK
+  return children;
 };
 
 export default PrivateRoute;
