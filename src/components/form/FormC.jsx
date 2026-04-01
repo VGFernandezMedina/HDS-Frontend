@@ -3,6 +3,7 @@ import "./FormC.css";
 import { useState } from "react";
 import clientAxios from "../../helpers/axios.helpers";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
 const FormC = ({ idPage }) => {
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
@@ -18,6 +19,7 @@ const FormC = ({ idPage }) => {
   const [contraseniaUsuario, setContraseniaUsuario] = useState("");
   const [repContraseniaUsuario, setRepContraseniaUsuario] = useState(""); */
   const [errores, setErrores] = useState({});
+  const navigate = useNavigate();
 
   const handleClickRegisterForm = async (ev) => {
     ev.preventDefault();
@@ -95,8 +97,51 @@ const FormC = ({ idPage }) => {
     setFormulario({ ...formulario, [ev.target.name]: ev.target.value });
   };
 
-  const handleChangeLoginForm = (ev) => {
+  const handleChangeLoginForm = async (ev) => {
     ev.preventDefault();
+
+    const nuevosErrores = {};
+    /* const email = formulario.emailUsuario.trim().toLowerCase(); */
+    const nombre = formulario.nombreUsuario.trim();
+    const contrasenia = formulario.contraseniaUsuario.trim();
+
+    /* if (!email) {
+      errores.email = "El correo es obligatorio";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      errores.email = "Formato de correo inválido";
+    } */
+
+    if (!nombre) {
+      errores.nombreUsuario = "El nombre es obligatorio";
+    }
+
+    if (!contrasenia) {
+      errores.contrasenia = "La contraseña es obligatoria";
+    }
+
+    setErrores(nuevosErrores);
+
+    if (nombre && contrasenia) {
+      const res = await clientAxios.post("/usuarios/login", {
+        nombreUsuario: nombre,
+        contrasenia: contrasenia,
+      });
+
+      if (res.status === 200) {
+        localStorage.setItem("token", JSON.stringify(res.data.token));
+        localStorage.setItem("rol", JSON.stringify(res.data.rolUsuario));
+
+        if (res.data.rolUsuario === "usuario") {
+          setTimeout(() => {
+            navigate("/user");
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            navigate("/admin");
+          }, 1000);
+        }
+      }
+    }
   };
 
   return (
