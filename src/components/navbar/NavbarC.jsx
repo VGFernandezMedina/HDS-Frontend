@@ -1,31 +1,41 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import NavLink from "react-bootstrap/NavLink";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "./NavbarC.css";
 import { Image } from "react-bootstrap";
 import logoNavbar from "/favicon.png";
+import { useLocation } from "react-router-dom";
 
 const NavbarC = () => {
+  const location = useLocation();
+
+  const isHome = location.pathname === "/";
+
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" className="navbar-transparente">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        className={isHome ? "navbar-transparente" : "navbar-normal"}
+      >
         <Container>
-          <Navbar.Brand href="/">
+          <NavLink href="/">
             <Image className="logo-navbar" src={logoNavbar} />
-          </Navbar.Brand>
+          </NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link className="fuente-navbar" href="#">
+              <NavLink className="fuente-navbar" href="/">
                 Inicio
-              </Nav.Link>
-              <Nav.Link className="fuente-navbar" href="#">
+              </NavLink>
+              <NavLink className="fuente-navbar" href="#">
                 Tienda
-              </Nav.Link>
-              <Nav.Link className="fuente-navbar" href="#">
+              </NavLink>
+              <NavLink className="fuente-navbar" href="#">
                 Contacto
-              </Nav.Link>
+              </NavLink>
               <NavDropdown
                 className="fuente-navbar"
                 title="Equipos"
@@ -40,12 +50,12 @@ const NavbarC = () => {
               </NavDropdown>
             </Nav>
             <Nav>
-              <Nav.Link className="fuente-navbar" href="#">
+              <NavLink className="fuente-navbar" href="/login">
                 Iniciar Sesión
-              </Nav.Link>
-              <Nav.Link className="fuente-navbar" href="#">
+              </NavLink>
+              <NavLink className="fuente-navbar" href="/register">
                 Registrarse
-              </Nav.Link>
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
