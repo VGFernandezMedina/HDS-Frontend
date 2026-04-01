@@ -1,0 +1,22 @@
+.input-password-container {
+  position: relative;
+}
+
+.input-password-container input {
+  padding-right: 60px; /* espacio para el icono */
+}
+
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #6c757d;
+}
+
+.eye-icon:hover {
+  color: #000;
+}

@@ -1,8 +1,12 @@
 import { Button, Container, Form } from "react-bootstrap";
 import "./FormC.css";
 import { useState } from "react";
+import clientAxios from "../../helpers/axios.helpers";
+import { LuEye, LuEyeClosed } from "react-icons/lu";
 
 const FormC = ({ idPage }) => {
+  const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
+  const [mostrarRepContrasenia, setMostrarRepContrasenia] = useState(false);
   const [formulario, setFormulario] = useState({
     nombreUsuario: "",
     emailUsuario: "",
@@ -15,7 +19,7 @@ const FormC = ({ idPage }) => {
   const [repContraseniaUsuario, setRepContraseniaUsuario] = useState(""); */
   const [errores, setErrores] = useState({});
 
-  const handleClickRegisterForm = (ev) => {
+  const handleClickRegisterForm = async (ev) => {
     ev.preventDefault();
     const nuevosErrores = {};
 
@@ -68,6 +72,15 @@ const FormC = ({ idPage }) => {
       return;
     }
     setErrores({});
+
+    //Crea el usuario y lo manda al backend
+
+    const usuario = await clientAxios.post("/usuarios/register", {
+      nombreUsuario: nombre,
+      emailUsuario: email,
+      contrasenia: contrasenia,
+    });
+    console.log(usuario);
 
     alert("El usuario fue creado con éxito");
     setFormulario({
@@ -133,15 +146,24 @@ const FormC = ({ idPage }) => {
 
           <Form.Group className="mb-3" controlId="formBasicPassword1">
             <Form.Label>Contraseña</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Contraseña"
-              name="contraseniaUsuario"
-              value={formulario.contraseniaUsuario}
-              onChange={handleChangeRegisterForm}
-              isInvalid={!!errores.contraseniaUsuario}
-              required
-            />
+            <div className="input-password-container">
+              <Form.Control
+                type={mostrarContrasenia ? "text" : "password"}
+                placeholder="Contraseña"
+                name="contraseniaUsuario"
+                value={formulario.contraseniaUsuario}
+                onChange={handleChangeRegisterForm}
+                isInvalid={!!errores.contraseniaUsuario}
+                required
+              />
+
+              <span
+                className="eye-icon"
+                onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
+              >
+                {mostrarContrasenia ? <LuEye /> : <LuEyeClosed />}
+              </span>
+            </div>
             <Form.Control.Feedback type="invalid">
               {errores.contraseniaUsuario}
             </Form.Control.Feedback>
@@ -150,15 +172,26 @@ const FormC = ({ idPage }) => {
           {idPage === "register" && (
             <Form.Group className="mb-3" controlId="formBasicPassword2">
               <Form.Label>Repetir contraseña</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Repetir contraseña"
-                name="repContraseniaUsuario"
-                value={formulario.repContraseniaUsuario}
-                onChange={handleChangeRegisterForm}
-                isInvalid={!!errores.repContraseniaUsuario}
-                required
-              />
+              <div className="input-password-container">
+                <Form.Control
+                  type={mostrarRepContrasenia ? "text" : "password"}
+                  placeholder="Repetir contraseña"
+                  name="repContraseniaUsuario"
+                  value={formulario.repContraseniaUsuario}
+                  onChange={handleChangeRegisterForm}
+                  isInvalid={!!errores.repContraseniaUsuario}
+                  required
+                />
+
+                <span
+                  className="eye-icon"
+                  onClick={() =>
+                    setMostrarRepContrasenia(!mostrarRepContrasenia)
+                  }
+                >
+                  {mostrarRepContrasenia ? <LuEye /> : <LuEyeClosed />}
+                </span>
+              </div>
               <Form.Control.Feedback type="invalid">
                 {errores.repContraseniaUsuario}
               </Form.Control.Feedback>
