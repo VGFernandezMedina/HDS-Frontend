@@ -8,15 +8,17 @@ import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import AdminPage from "./pages/AdminPage";
+import ShopPage from "./pages/ShopPage";
 
 const App = () => {
   return (
     <Router>
       <NavbarC />
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/shop" element={<ShopPage />} />
         <Route
           path="/user"
           element={

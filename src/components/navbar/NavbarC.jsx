@@ -51,7 +51,7 @@ const NavbarC = () => {
               >
                 Inicio
               </NavLink>
-              <NavLink className="fuente-navbar" to="#">
+              <NavLink className="fuente-navbar" to="/shop">
                 Tienda
               </NavLink>
               <NavLink className="fuente-navbar" to="#">
