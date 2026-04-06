@@ -1,0 +1,39 @@
+.card-productos {
+  width: 350px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+.botones-productos {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-ver,
+.btn-carrito {
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.btn-ver {
+  background-color: #0d6efd;
+  color: white;
+}
+.btn-ver:hover {
+  background-color: #084298;
+}
+.btn-carrito {
+  background-color: #198754;
+  color: white;
+}
+.btn-carrito:hover {
+  background-color: #146c43;
+}
+.botones-productos {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

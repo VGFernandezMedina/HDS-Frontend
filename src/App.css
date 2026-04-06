@@ -1,10 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
 
 :root {
+  /* 🔴 ROJO (principal) */
+  --primary-100: #ffe5e5;
+  --primary-300: #ff4d4d;
+  --primary-500: #ff1e1e; /* tu rojo base */
+  --primary-700: #cc0000;
+  --primary-900: #4c0203; /* rojo oscuro del logo */
+
+  /* ⚫ NEGROS / GRISES */
+  --gray-100: #f5f5f5;
+  --gray-300: #bdbdbd;
+  --gray-500: #7a7a7a;
+  --gray-700: #3a3a3a;
+  --gray-900: #121212;
+
+  /* ⚪ BASE */
+  --hds-blanco: #ffffff;
+  --hds-negro: #000000;
+
+  /* 🟢 (opcional) semánticos */
+  --success: #4caf50;
+  --warning: #ffb300;
+  --error: #e53935;
+}
+
+:root {
   --hds-rojo: #ff1e1e;
   --hds-rojo-oscuro: #4c0203;
-  --hds-negro: #000000;
-  --hds-blanco: #ffffff;
   --hds-gris-oscuro: #4a4a4a;
   --hds-gris-claro: #bdbdbd;
 }
