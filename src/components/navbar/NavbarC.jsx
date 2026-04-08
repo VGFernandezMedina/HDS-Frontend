@@ -79,7 +79,7 @@ const NavbarC = () => {
               {token ? (
                 <>
                   {rolUsuario === "usuario" && (
-                    <NavLink className="fuente-navbar" to="#">
+                    <NavLink className="fuente-navbar" to="/user/cart">
                       Carrito
                     </NavLink>
                   )}

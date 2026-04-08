@@ -10,6 +10,8 @@ import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import AdminPage from "./pages/AdminPage";
 import ShopPage from "./pages/ShopPage";
 import ProductDetail from "./pages/ProductDetail";
+import CartPage from "./pages/CartPage";
+import FavPage from "./pages/FavPage";
 
 const App = () => {
   return (
@@ -21,6 +23,24 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/product-detail/:id" element={<ProductDetail />} />
+        <Route
+          path="/user/cart"
+          element={
+            <PrivateRoute rol="usuario">
+              <PrivateRoute />
+              <CartPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/user/favs"
+          element={
+            <PrivateRoute rol="usuario">
+              <PrivateRoute />
+              <FavPage />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/user"
           element={
