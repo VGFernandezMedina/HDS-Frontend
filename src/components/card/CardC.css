@@ -44,3 +44,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* cantidad de líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

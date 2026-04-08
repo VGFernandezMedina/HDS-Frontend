@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TbArrowForward } from "react-icons/tb";
 import { FaShieldAlt } from "react-icons/fa";
-/* import { useNavigate } from "react-router-dom"; */
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetail = () => {
-  /* const navigate = useNavigate(); */
+  const navigate = useNavigate();
   const [producto, setProducto] = useState([]);
   const { id } = useParams();
 
@@ -19,6 +20,46 @@ const ProductDetail = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const agregarProductoCarrito = () => {
+    const usuarioLogeado = JSON.parse(localStorage.getItem("token")) || null;
+
+    if (!usuarioLogeado) {
+      Swal.fire({
+        text: "Debes iniciar sesión para poder tener un carrito",
+        icon: "info",
+        timer: 1500,
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+
+      return;
+    }
+  };
+
+  const handleClickPay = () => {
+    const usuarioLogeado = JSON.parse(localStorage.getItem("token")) || null;
+
+    if (!usuarioLogeado) {
+      Swal.fire({
+        title: "Debes iniciar sesion para poder comprar",
+        icon: "info",
+        timer: 1000,
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+
+      return;
+    }
+    Swal.fire({
+      title: "Gracias por tu compra!",
+      icon: "success",
+    });
   };
 
   useEffect(() => {
@@ -38,7 +79,7 @@ const ProductDetail = () => {
           <Col sm="12" md="6" lg="5" className="g-0 col-description-detail">
             <div>
               <h1 className="pb-4">{producto.nombre}</h1>
-              <p className="my-1">${producto.precio}</p>
+              <h3 className="my-1">${producto.precio}</h3>
               <p>⭐⭐⭐⭐☆ (4.5)</p>
               Producto de excelente calidad, ideal para tu día a día.
             </div>
@@ -67,8 +108,15 @@ const ProductDetail = () => {
               <li>Ideal para uso diario</li>
             </ul>
             <div className="btns pt-4">
-              <Button className="btn-custom-cart">Agregar al carrito</Button>
-              <Button className="btn-custom-buy">Comprar</Button>
+              <Button
+                className="btn-custom-cart"
+                onClick={() => agregarProductoCarrito(producto._id)}
+              >
+                Agregar al carrito
+              </Button>
+              <Button className="btn-custom-buy" onClick={handleClickPay}>
+                Comprar
+              </Button>
             </div>
           </Col>
         </Row>
