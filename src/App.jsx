@@ -9,6 +9,7 @@ import UserPage from "./pages/UserPage";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import AdminPage from "./pages/AdminPage";
 import ShopPage from "./pages/ShopPage";
+import ProductDetail from "./pages/ProductDetail";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/product-detail/:id" element={<ProductDetail />} />
         <Route
           path="/user"
           element={

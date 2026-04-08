@@ -3,7 +3,7 @@ import "./CardC.css";
 import { Card } from "react-bootstrap";
 import camiseta from "/camisetaHDS.jpg";
 
-const CardC = ({ idProd, /* urlImagen, */ titulo, descripcion, precio }) => {
+const CardC = ({ /* idProd, urlImagen, */ titulo, descripcion, precio }) => {
   return (
     <Card className="card-productos">
       {/* <Card.Img variant="top" src={urlImagen} /> */}
@@ -13,10 +13,10 @@ const CardC = ({ idProd, /* urlImagen, */ titulo, descripcion, precio }) => {
         <Card.Title>${precio}</Card.Title>
         <Card.Text>{descripcion}</Card.Text>
         <div className="botones-productos">
-          <Link to={`/detalle-producto/${idProd}`} className="btn-ver">
-            Ver detalles
+          <Link to="#" className="btn-ver">
+            Talles
           </Link>
-          <Link to={`/detalle-producto/${idProd}`} className="btn-carrito">
+          <Link to="#" className="btn-carrito">
             Añadir al carrito
           </Link>
         </div>
