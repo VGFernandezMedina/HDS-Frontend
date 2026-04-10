@@ -1,6 +1,6 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "./ProductDetail.css";
-import clientAxios from "../helpers/axios.helpers";
+import clientAxios, { configHeaders } from "../helpers/axios.helpers";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TbArrowForward } from "react-icons/tb";
@@ -22,21 +22,43 @@ const ProductDetail = () => {
     }
   };
 
-  const agregarProductoCarrito = () => {
-    const usuarioLogeado = JSON.parse(localStorage.getItem("token")) || null;
+  const agregarProductoCarrito = async () => {
+    try {
+      const usuarioLogeado = JSON.parse(localStorage.getItem("token")) || null;
 
-    if (!usuarioLogeado) {
-      Swal.fire({
-        text: "Debes iniciar sesión para poder tener un carrito",
-        icon: "info",
-        timer: 1500,
-      });
+      if (!usuarioLogeado) {
+        Swal.fire({
+          text: "Debes iniciar sesión para poder tener un carrito",
+          icon: "info",
+          timer: 1500,
+        });
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
 
-      return;
+        return;
+      }
+
+      const res = await clientAxios.put(
+        `/carritos/agregarProducto/${producto._id}`,
+        {},
+        configHeaders,
+      );
+
+      if (res.status === 200) {
+        Swal.fire({
+          title: `${res.data.msg}`,
+          icon: "success",
+        });
+      }
+    } catch (error) {
+      if (error.status === 400) {
+        Swal.fire({
+          title: `${error.response.data.msg}`,
+          icon: "error",
+        });
+      }
     }
   };
 
