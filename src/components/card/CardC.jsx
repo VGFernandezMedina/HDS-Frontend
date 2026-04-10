@@ -1,32 +1,59 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./CardC.css";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import camiseta from "/camisetaHDS.jpg";
 import Swal from "sweetalert2";
+import clientAxios, { configHeaders } from "../../helpers/axios.helpers";
 
 const CardC = ({ idProd, /* urlImagen, */ titulo, descripcion, precio }) => {
   const navigate = useNavigate();
 
-  const agregarProductoCarrito = () => {
-    const usuarioLogeado = JSON.parse(localStorage.getItem("token")) || null;
+  const agregarProductoCarrito = async (idProducto) => {
+    try {
+      const usuarioLogeado = JSON.parse(localStorage.getItem("token")) || null;
 
-    if (!usuarioLogeado) {
-      Swal.fire({
-        text: "Debes iniciar sesión para poder tener un carrito",
-        icon: "info",
-        timer: 1500,
-      });
+      if (!usuarioLogeado) {
+        Swal.fire({
+          text: "Debes iniciar sesión para poder tener un carrito",
+          icon: "info",
+          timer: 1500,
+        });
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
 
-      return;
+        return;
+      }
+
+      const res = await clientAxios.put(
+        `/carritos/agregarProducto/${idProducto}`,
+        {},
+        configHeaders,
+      );
+
+      if (res.status === 200) {
+        Swal.fire({
+          title: `${res.data.msg}`,
+          icon: "success",
+        });
+      }
+    } catch (error) {
+      if (error.status === 400) {
+        Swal.fire({
+          title: `${error.response.data.msg}`,
+          icon: "error",
+        });
+      }
     }
   };
 
   return (
-    <Card className="card-productos">
+    <Card
+      className="card-productos"
+      onClick={() => navigate(`/product-detail/${idProd}`)}
+      style={{ cursor: "pointer" }}
+    >
       {/* <Card.Img variant="top" src={urlImagen} /> */}
       <Card.Img variant="top" src={camiseta} />
       <Card.Body>
@@ -37,13 +64,16 @@ const CardC = ({ idProd, /* urlImagen, */ titulo, descripcion, precio }) => {
           <Link to="#" className="btn-ver">
             Talles
           </Link>
-          <Link
-            to="#"
+          <Button
             className="btn-carrito"
-            onClick={() => agregarProductoCarrito(idProd)}
+            variant="success"
+            onClick={(e) => {
+              e.stopPropagation();
+              agregarProductoCarrito(idProd);
+            }}
           >
-            Añadir al carrito
-          </Link>
+            Agregar al Carrito
+          </Button>
         </div>
       </Card.Body>
     </Card>

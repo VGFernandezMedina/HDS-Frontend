@@ -40,18 +40,13 @@ const ShopPage = () => {
                   lg="4"
                   className="d-flex justify-content-center py-3"
                 >
-                  <Link
-                    to={`/product-detail/${producto._id}`}
-                    className="text-decoration-none"
-                  >
-                    <CardC
-                      idProd={producto._id}
-                      urlImagen={producto.imagen}
-                      titulo={producto.nombre}
-                      precio={producto.precio}
-                      descripcion={producto.descripcion}
-                    />
-                  </Link>
+                  <CardC
+                    idProd={producto._id}
+                    urlImagen={producto.imagen}
+                    titulo={producto.nombre}
+                    precio={producto.precio}
+                    descripcion={producto.descripcion}
+                  />
                 </Col>
               ))}
             </Row>

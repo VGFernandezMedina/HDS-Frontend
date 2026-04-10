@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import clientAxios, { configHeaders } from "../helpers/axios.helpers";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { IoMdArrowBack } from "react-icons/io";
 
 const CartPage = () => {
   const [productos, setProductos] = useState([]);
@@ -57,7 +59,7 @@ const CartPage = () => {
     <>
       <Container fluid className="container-cart">
         <Row>
-          <Col sm="12" md="6" lg="8" className="">
+          <Col sm="12" md="6" lg="8" className="px-5">
             <div>
               <div className="par-info">
                 <p>Producto</p>
@@ -67,7 +69,7 @@ const CartPage = () => {
             </div>
             {productos &&
               productos.map((producto) => (
-                <Row key={producto._id} className="w-100 pb-2">
+                <Row key={producto._id} className=" pb-2">
                   <Col sm="" md="" lg="3" className="col-cart border">
                     <div className="div-img-cart">
                       <img src="/camisetaHDS.jpg" alt="camisetaHDS" />
@@ -81,7 +83,10 @@ const CartPage = () => {
                   </Col>
                   <Col sm="" md="" lg="3" className="col-cart border">
                     <div className="cart-price-delete">
-                      <Button onClick={() => handleDelete(producto._id)}>
+                      <Button
+                        className="button-delete-cart"
+                        onClick={() => handleDelete(producto._id)}
+                      >
                         <FaRegTrashAlt />
                       </Button>
                       <p className="m-0">${producto.precio}</p>
@@ -90,6 +95,16 @@ const CartPage = () => {
                   <hr className="mt-4" />
                 </Row>
               ))}
+            <div className="par-info">
+              <p>
+                ¿Necesitas ayuda? Consulta nuestra sección de{" "}
+                <a href="">ayuda y soporte</a> o <a href="">contáctanos</a>.
+              </p>
+              <Link to="/shop" className="btn-goback">
+                <IoMdArrowBack size={22} />
+                Volver a la tienda
+              </Link>
+            </div>
           </Col>
           <Col sm="12" md="6" lg="4" className="border col-cart-info p-0">
             <div className="div-cart-info border">
