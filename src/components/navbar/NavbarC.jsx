@@ -44,7 +44,7 @@ const NavbarC = () => {
           </NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
+            <Nav className="me-auto px-4 gap-4">
               <NavLink
                 className="fuente-navbar"
                 to={!token ? "/" : rolUsuario === "admin" ? "/admin" : "/user"}
@@ -63,7 +63,7 @@ const NavbarC = () => {
                 </NavLink>
               )}
               <NavDropdown
-                className="fuente-navbar px-0"
+                className="fuente-navbar"
                 title="Equipos"
                 id="collapsible-nav-dropdown"
               >
@@ -75,7 +75,7 @@ const NavbarC = () => {
                 <NavDropdown.Item to="#">League of legends</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Nav>
+            <Nav className="gap-4">
               {token ? (
                 <>
                   {rolUsuario === "usuario" && (
