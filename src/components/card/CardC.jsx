@@ -31,7 +31,7 @@ const CardC = ({ idProd, /* urlImagen, */ titulo, descripcion, precio }) => {
         {},
         configHeaders,
       );
-
+      window.dispatchEvent(new Event("carritoActualizado"));
       if (res.status === 200) {
         Swal.fire({
           title: `${res.data.msg}`,

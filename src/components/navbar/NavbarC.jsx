@@ -8,10 +8,14 @@ import "./NavbarC.css";
 import { Image } from "react-bootstrap";
 import logoNavbar from "/favicon.png";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { BsCart2 } from "react-icons/bs";
+import { useEffect, useState } from "react";
+import clientAxios, { configHeaders } from "../../helpers/axios.helpers";
 
 const NavbarC = () => {
   const token = JSON.parse(localStorage.getItem("token")) || null;
   const rolUsuario = JSON.parse(localStorage.getItem("rol")) || null;
+  const [cantidad, setCantidad] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,6 +32,36 @@ const NavbarC = () => {
       navigate("/");
     }, 500);
   };
+
+  // Actualiza el numero de productos del carrito
+
+  async function obtenerCarrito() {
+    try {
+      const res = await clientAxios.get(
+        "/carritos/obtenerProductos",
+        configHeaders,
+      );
+      const productos = res.data.productos || [];
+      const total = productos.length;
+      setCantidad(total);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(function () {
+    obtenerCarrito();
+  }, []);
+
+  useEffect(function () {
+    const actualizar = () => {
+      obtenerCarrito();
+    };
+    window.addEventListener("carritoActualizado", actualizar);
+    return function () {
+      window.removeEventListener("carritoActualizado", actualizar);
+    };
+  }, []);
 
   return (
     <>
@@ -79,11 +113,26 @@ const NavbarC = () => {
               {token ? (
                 <>
                   {rolUsuario === "usuario" && (
-                    <NavLink className="fuente-navbar" to="/user/cart">
-                      Carrito
+                    <NavLink
+                      to="/user/cart"
+                      className="position-relative fuente-navbar py-2"
+                    >
+                      <BsCart2
+                        size={22}
+                        className={cantidad ? "cart-anim" : ""}
+                      />
+
+                      {cantidad > 0 && (
+                        <span key={cantidad} className="cart-badge">
+                          {cantidad > 99 ? "99+" : cantidad}
+                        </span>
+                      )}
                     </NavLink>
                   )}
-                  <NavLink className="fuente-navbar" onClick={handleLogoutUser}>
+                  <NavLink
+                    className="fuente-navbar py-2"
+                    onClick={handleLogoutUser}
+                  >
                     Cerrar Sesión
                   </NavLink>
                 </>

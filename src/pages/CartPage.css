@@ -46,7 +46,7 @@
 }
 
 .div-img-cart {
-  width: 120px;
+  width: 100px;
   img {
     width: 100%;
     object-fit: cover;
@@ -60,7 +60,8 @@
 .cart-price-delete {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  width: 60%;
 
   button {
     display: flex;
