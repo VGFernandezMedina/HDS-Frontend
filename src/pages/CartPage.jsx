@@ -70,18 +70,18 @@ const CartPage = () => {
             {productos &&
               productos.map((producto) => (
                 <Row key={producto._id} className=" pb-2">
-                  <Col sm="" md="" lg="3" className="col-cart border">
+                  <Col sm="" md="" lg="3" className="col-cart">
                     <div className="div-img-cart">
                       <img src="/camisetaHDS.jpg" alt="camisetaHDS" />
                     </div>
                   </Col>
-                  <Col sm="" md="" lg="4" className="col-cart border">
+                  <Col sm="" md="" lg="4" className="col-cart">
                     <p className="m-0">{producto.nombre}</p>
                   </Col>
-                  <Col sm="" md="" lg="2" className="col-cart border">
+                  <Col sm="" md="" lg="2" className="col-cart">
                     <p className="m-0">cantidad</p>
                   </Col>
-                  <Col sm="" md="" lg="3" className="col-cart border">
+                  <Col sm="" md="" lg="3" className="col-cart">
                     <div className="cart-price-delete">
                       <Button
                         className="button-delete-cart"
@@ -106,8 +106,8 @@ const CartPage = () => {
               </Link>
             </div>
           </Col>
-          <Col sm="12" md="6" lg="4" className="border col-cart-info p-0">
-            <div className="div-cart-info border">
+          <Col sm="12" md="6" lg="4" className="col-cart-info p-0">
+            <div className="div-cart-info">
               <h4>Resumen de compras</h4>
               <hr />
               <div className="d-flex flex-column ">
