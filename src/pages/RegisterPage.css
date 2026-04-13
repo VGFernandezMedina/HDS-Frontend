@@ -1,0 +1,10 @@
+.container-register {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("/public/bg-img.png");
+  background-size: cover;
+  background-position: center;
+}

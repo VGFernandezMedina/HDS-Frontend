@@ -1,10 +1,11 @@
+import { Container } from "react-bootstrap";
 import FormC from "../components/form/FormC";
 
 const LoginPage = () => {
   return (
-    <>
+    <Container fluid className="container-register">
       <FormC idPage="login" />
-    </>
+    </Container>
   );
 };
 

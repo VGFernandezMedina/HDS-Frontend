@@ -138,10 +138,10 @@ const NavbarC = () => {
                 </>
               ) : (
                 <>
-                  <NavLink className="fuente-navbar" to="/login">
+                  <NavLink className="fuente-navbar py-2" to="/login">
                     Iniciar Sesión
                   </NavLink>
-                  <NavLink className="fuente-navbar" to="/register">
+                  <NavLink className="fuente-navbar py-2" to="/register">
                     Registrarse
                   </NavLink>
                 </>

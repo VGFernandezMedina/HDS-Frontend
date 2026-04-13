@@ -3,7 +3,7 @@ import "./FormC.css";
 import { useState } from "react";
 import clientAxios from "../../helpers/axios.helpers";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const FormC = ({ idPage }) => {
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
@@ -146,8 +146,10 @@ const FormC = ({ idPage }) => {
 
   return (
     <>
-      <Container className="d-flex justify-content-center my-5">
+      <div className="div-form">
+        <h3>Inicia sesión en tu cuenta</h3>
         <Form
+          className="form-reg-login"
           noValidate
           onSubmit={
             idPage === "register"
@@ -189,7 +191,10 @@ const FormC = ({ idPage }) => {
             </Form.Group>
           )}
 
-          <Form.Group className="mb-3" controlId="formBasicPassword1">
+          <Form.Group
+            className={idPage === "login" ? "mb-1" : "mb-3"}
+            controlId="formBasicPassword1"
+          >
             <Form.Label>Contraseña</Form.Label>
             <div className="input-password-container">
               <Form.Control
@@ -213,6 +218,16 @@ const FormC = ({ idPage }) => {
               {errores.contraseniaUsuario}
             </Form.Control.Feedback>
           </Form.Group>
+
+          {idPage === "login" && (
+            <div>
+              <p className="text-end m-0">
+                <Link to="" className="forgot-link">
+                  Olvidaste tu contraseña?
+                </Link>
+              </p>
+            </div>
+          )}
 
           {idPage === "register" && (
             <Form.Group className="mb-3" controlId="formBasicPassword2">
@@ -243,11 +258,11 @@ const FormC = ({ idPage }) => {
             </Form.Group>
           )}
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="btn-login">
             {idPage === "register" ? "Registrarme" : "Iniciar sesión"}
           </Button>
         </Form>
-      </Container>
+      </div>
     </>
   );
 };
