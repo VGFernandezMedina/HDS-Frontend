@@ -9,6 +9,7 @@ import { IoMdArrowBack } from "react-icons/io";
 
 const CartPage = () => {
   const [productos, setProductos] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const obtenerProductoDelCarrito = async () => {
     const res = await clientAxios.get(
@@ -56,6 +57,14 @@ const CartPage = () => {
   useEffect(() => {
     obtenerProductoDelCarrito();
   }, []);
+
+  useEffect(() => {
+    let suma = 0;
+    productos.forEach((producto) => {
+      suma += producto.precio; // producto*cantidad cuando haya cantidad
+    });
+    setTotal(suma);
+  }, [productos]); // Cada vez que productos cambie, useEffect se ejecuta
 
   return (
     <>
@@ -114,7 +123,7 @@ const CartPage = () => {
               <hr />
               <div className="d-flex flex-column ">
                 <div className="par-info">
-                  <p>Producto</p>
+                  <p>Productos</p>
                   <p>precio</p>
                 </div>
                 <hr />
@@ -134,7 +143,7 @@ const CartPage = () => {
                 <hr />
                 <div className="par-info pb-3">
                   <p>Total</p>
-                  <p>precio</p>
+                  <p>${total}</p>
                 </div>
                 <Button>Continuar</Button>
               </div>
