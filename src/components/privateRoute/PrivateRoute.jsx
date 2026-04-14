@@ -12,6 +12,11 @@ const PrivateRoute = ({ children, rol }) => {
 
   // Si se requiere un rol y no coincide
   if (rol && rol !== rolUsuario) {
+    // Si es admin, dejarlo pasar
+    if (rolUsuario === "admin") {
+      return children;
+    }
+
     if (rolUsuario === "usuario") {
       return <Navigate to="/user" />;
     } else {

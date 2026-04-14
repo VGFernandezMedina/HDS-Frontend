@@ -91,11 +91,6 @@ const NavbarC = () => {
               <NavLink className="fuente-navbar" to="#">
                 Contacto
               </NavLink>
-              {token && rolUsuario === "admin" && (
-                <NavLink className="fuente-navbar" to="/user">
-                  Vista usuario
-                </NavLink>
-              )}
               <NavDropdown
                 className="fuente-navbar"
                 title="Equipos"
@@ -108,6 +103,16 @@ const NavbarC = () => {
                 <NavDropdown.Item to="#">Valorant</NavDropdown.Item>
                 <NavDropdown.Item to="#">League of legends</NavDropdown.Item>
               </NavDropdown>
+              {token && rolUsuario === "admin" && (
+                <>
+                  <NavLink className="fuente-navbar" to="/user">
+                    Vista usuario
+                  </NavLink>
+                  <NavLink className="fuente-navbar" to="/panel-admin">
+                    Panel admin
+                  </NavLink>
+                </>
+              )}
             </Nav>
             <Nav className="gap-4">
               {token ? (

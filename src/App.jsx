@@ -7,11 +7,15 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
-import AdminPage from "./pages/AdminPage";
+/* import AdminPage from "./pages/AdminPage"; */
 import ShopPage from "./pages/ShopPage";
 import ProductDetail from "./pages/ProductDetail";
 import CartPage from "./pages/CartPage";
 import FavPage from "./pages/FavPage";
+import AdminHome from "./pages/Admin/AdminHome";
+import AdminProducts from "./pages/Admin/AdminProducts";
+import AdminUsers from "./pages/Admin/AdminUsers";
+import AdminLayout from "./components/adminLayout/AdminLayout";
 
 const App = () => {
   return (
@@ -27,7 +31,6 @@ const App = () => {
           path="/user/cart"
           element={
             <PrivateRoute rol="usuario">
-              <PrivateRoute />
               <CartPage />
             </PrivateRoute>
           }
@@ -36,7 +39,6 @@ const App = () => {
           path="/user/favs"
           element={
             <PrivateRoute rol="usuario">
-              <PrivateRoute />
               <FavPage />
             </PrivateRoute>
           }
@@ -53,10 +55,22 @@ const App = () => {
           path="/admin"
           element={
             <PrivateRoute rol="admin">
+              <AdminLayout />
+            </PrivateRoute>
+          }
+        >
+          <Route index element={<AdminHome />} />
+          <Route path="usuarios" element={<AdminUsers />} />
+          <Route path="productos" element={<AdminProducts />} />
+        </Route>
+        {/* <Route
+          path="/admin"
+          element={
+            <PrivateRoute rol="admin">
               <AdminPage />
             </PrivateRoute>
           }
-        />
+        /> */}
       </Routes>
       <Footer />
     </Router>
