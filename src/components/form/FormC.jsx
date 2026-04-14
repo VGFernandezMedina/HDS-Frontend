@@ -4,10 +4,11 @@ import { useState } from "react";
 import clientAxios from "../../helpers/axios.helpers";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const FormC = ({ idPage }) => {
-  const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
-  const [mostrarRepContrasenia, setMostrarRepContrasenia] = useState(false);
+  /* const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
+  const [mostrarRepContrasenia, setMostrarRepContrasenia] = useState(false); */
   const [formulario, setFormulario] = useState({
     nombreUsuario: "",
     emailUsuario: "",
@@ -77,14 +78,25 @@ const FormC = ({ idPage }) => {
 
     //Crea el usuario y lo manda al backend
 
-    const usuario = await clientAxios.post("/usuarios/register", {
+    const res = await clientAxios.post("/usuarios/register", {
       nombreUsuario: nombre,
       emailUsuario: email,
       contrasenia: contrasenia,
     });
-    console.log(usuario);
+    console.log(res);
 
-    alert("El usuario fue creado con éxito");
+    if (res.status === 201) {
+      Swal.fire({
+        title: "Gracias por tu registro!",
+        text: `${res.data.msg}`,
+        icon: "success",
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    }
+
     setFormulario({
       nombreUsuario: "",
       emailUsuario: "",
@@ -112,33 +124,51 @@ const FormC = ({ idPage }) => {
     } */
 
     if (!nombre) {
-      errores.nombreUsuario = "El nombre es obligatorio";
+      nuevosErrores.nombreUsuario = "El nombre es obligatorio";
     }
 
     if (!contrasenia) {
-      errores.contrasenia = "La contraseña es obligatoria";
+      nuevosErrores.contraseniaUsuario = "La contraseña es obligatoria";
     }
 
     setErrores(nuevosErrores);
 
     if (nombre && contrasenia) {
-      const res = await clientAxios.post("/usuarios/login", {
-        nombreUsuario: nombre,
-        contrasenia: contrasenia,
-      });
+      try {
+        const res = await clientAxios.post("/usuarios/login", {
+          nombreUsuario: nombre,
+          contrasenia: contrasenia,
+        });
 
-      if (res.status === 200) {
-        localStorage.setItem("token", JSON.stringify(res.data.token));
-        localStorage.setItem("rol", JSON.stringify(res.data.rolUsuario));
+        if (res.status === 200) {
+          localStorage.setItem("token", JSON.stringify(res.data.token));
+          localStorage.setItem("rol", JSON.stringify(res.data.rolUsuario));
 
-        if (res.data.rolUsuario === "usuario") {
-          setTimeout(() => {
-            navigate("/user");
-          }, 1000);
+          if (res.data.rolUsuario === "usuario") {
+            setTimeout(() => {
+              navigate("/user");
+            }, 1000);
+          } else {
+            setTimeout(() => {
+              navigate("/admin");
+            }, 1000);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+
+        if (error.response) {
+          Swal.fire({
+            title: "Error",
+            text: `${error.response.data.msg}`,
+            icon: "error",
+          });
         } else {
-          setTimeout(() => {
-            navigate("/admin");
-          }, 1000);
+          Swal.fire({
+            title: "Error",
+            text: "Error del servidor",
+            icon: "error",
+          });
         }
       }
     }
@@ -167,6 +197,9 @@ const FormC = ({ idPage }) => {
               onChange={handleChangeRegisterForm}
               isInvalid={!!errores.nombreUsuario}
               required
+              spellCheck={false}
+              autoCapitalize="none"
+              autoCorrect="off"
             />
             <Form.Control.Feedback type="invalid">
               {errores.nombreUsuario}
@@ -196,24 +229,24 @@ const FormC = ({ idPage }) => {
             controlId="formBasicPassword1"
           >
             <Form.Label>Contraseña</Form.Label>
-            <div className="input-password-container">
-              <Form.Control
-                type={mostrarContrasenia ? "text" : "password"}
-                placeholder="Contraseña"
-                name="contraseniaUsuario"
-                value={formulario.contraseniaUsuario}
-                onChange={handleChangeRegisterForm}
-                isInvalid={!!errores.contraseniaUsuario}
-                required
-              />
+            {/* <div className="input-password-container"> */}
+            <Form.Control
+              type="password"
+              placeholder="Contraseña"
+              name="contraseniaUsuario"
+              value={formulario.contraseniaUsuario}
+              onChange={handleChangeRegisterForm}
+              isInvalid={!!errores.contraseniaUsuario}
+              required
+            />
 
-              <span
-                className="eye-icon"
+            {/* <span
+                className="eye-icon position"
                 onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
               >
                 {mostrarContrasenia ? <LuEye /> : <LuEyeClosed />}
               </span>
-            </div>
+            </div> */}
             <Form.Control.Feedback type="invalid">
               {errores.contraseniaUsuario}
             </Form.Control.Feedback>
@@ -232,18 +265,18 @@ const FormC = ({ idPage }) => {
           {idPage === "register" && (
             <Form.Group className="mb-3" controlId="formBasicPassword2">
               <Form.Label>Repetir contraseña</Form.Label>
-              <div className="input-password-container">
-                <Form.Control
-                  type={mostrarRepContrasenia ? "text" : "password"}
-                  placeholder="Repetir contraseña"
-                  name="repContraseniaUsuario"
-                  value={formulario.repContraseniaUsuario}
-                  onChange={handleChangeRegisterForm}
-                  isInvalid={!!errores.repContraseniaUsuario}
-                  required
-                />
+              {/* <div className="input-password-container"> */}
+              <Form.Control
+                type="password"
+                placeholder="Repetir contraseña"
+                name="repContraseniaUsuario"
+                value={formulario.repContraseniaUsuario}
+                onChange={handleChangeRegisterForm}
+                isInvalid={!!errores.repContraseniaUsuario}
+                required
+              />
 
-                <span
+              {/* <span
                   className="eye-icon"
                   onClick={() =>
                     setMostrarRepContrasenia(!mostrarRepContrasenia)
@@ -251,7 +284,7 @@ const FormC = ({ idPage }) => {
                 >
                   {mostrarRepContrasenia ? <LuEye /> : <LuEyeClosed />}
                 </span>
-              </div>
+              </div> */}
               <Form.Control.Feedback type="invalid">
                 {errores.repContraseniaUsuario}
               </Form.Control.Feedback>

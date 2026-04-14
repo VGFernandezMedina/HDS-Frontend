@@ -35,8 +35,9 @@ const NavbarC = () => {
 
   // Actualiza el numero de productos del carrito
 
-  async function obtenerCarrito() {
+  const obtenerCarrito = async () => {
     try {
+      if (!token) return;
       const res = await clientAxios.get(
         "/carritos/obtenerProductos",
         configHeaders,
@@ -47,11 +48,13 @@ const NavbarC = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-  useEffect(function () {
-    obtenerCarrito();
-  }, []);
+  useEffect(() => {
+    if (token) {
+      obtenerCarrito();
+    }
+  }, [token]);
 
   useEffect(function () {
     const actualizar = () => {

@@ -54,9 +54,19 @@
   color: #bbbbbb;
 }
 
-.form-control:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--gray-900) inset !important;
-  -webkit-text-fill-color: #fff !important;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+
+  box-shadow: 0 0 0px 1000px var(--gray-900) inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--gray-900) inset !important;
+
+  border: 1px solid var(--gray-700) !important;
+
+  background-clip: content-box !important;
 }
 
 .btn-login {
