@@ -18,6 +18,14 @@ const AdminUsers = () => {
     }
   };
 
+  const handleEditUser = (usuario) => {
+    console.log("Editar usuario", usuario);
+  };
+
+  const handleDeleteUser = (usuario) => {
+    console.log("Eliminar usuario", usuario);
+  };
+
   const columnasUsuarios = [
     { key: "nombreUsuario", label: "Nombre" },
     { key: "emailUsuario", label: "Email" },
@@ -36,7 +44,12 @@ const AdminUsers = () => {
         <Searcher placeholder="Buscar usuario..." />
         <AddButton text="Agregar usuario" />
       </div>
-      <AdminTable data={usuarios} columns={columnasUsuarios} />
+      <AdminTable
+        data={usuarios}
+        columns={columnasUsuarios}
+        onEdit={handleEditUser}
+        onDelete={handleDeleteUser}
+      />
     </div>
   );
 };
