@@ -1,5 +1,5 @@
 import "./AdminUsers.css";
-import AddButton from "../../components/admin/AddButton";
+/* import AddButton from "../../components/admin/AddButton"; */
 import Searcher from "../../components/admin/Searcher";
 import AdminTable from "../../components/admin/AdminTable";
 import { useEffect, useState } from "react";
@@ -42,7 +42,7 @@ const AdminUsers = () => {
       <div className="p-btn">
         <p>Administrar usuarios</p>
         <Searcher placeholder="Buscar usuario..." />
-        <AddButton text="Agregar usuario" />
+        {/* <AddButton text="Agregar usuario" /> */}
       </div>
       <AdminTable
         data={usuarios}

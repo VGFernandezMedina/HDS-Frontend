@@ -13,12 +13,12 @@ const Sidebar = () => {
         Inicio
       </NavLink>
       <br />
-      <NavLink to="/admin/usuarios">
+      <NavLink to="/admin/users">
         <FaUsers />
         Administrar Usuarios
       </NavLink>
       <br />
-      <NavLink to="/admin/productos">
+      <NavLink to="/admin/products">
         <FaBoxes />
         Administrar Productos
       </NavLink>

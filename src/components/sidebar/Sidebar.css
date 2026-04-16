@@ -1,6 +1,6 @@
 .sidebar {
   width: 300px;
-  background: linear-gradient(180deg, #1e1e2f, #2c2c54);
+  background: linear-gradient(180deg, var(--gray-900), var(--primary-900));
   color: white;
   padding: 25px 25px;
   display: flex;

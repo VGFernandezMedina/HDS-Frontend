@@ -51,8 +51,14 @@
   border-color: var(--warning);
   color: var(--warning);
 }
+.btn-table-admin.editar:active {
+  background-color: transparent;
+}
 
 .btn-table-admin.borrar:hover {
   border-color: var(--error);
   color: var(--error);
+}
+.btn-table-admin.borrar:active {
+  background-color: transparent;
 }

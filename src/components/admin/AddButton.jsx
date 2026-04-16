@@ -1,13 +1,17 @@
 import "./AddButton.css";
-import { Button } from "react-bootstrap";
 import { GoPlus } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 const AddButton = ({ text, onClick }) => {
   return (
-    <Button onClick={onClick}>
+    <Link
+      className="btn btn-primary"
+      to="/admin/products/create"
+      onClick={onClick}
+    >
       <GoPlus size={24} />
       {text}
-    </Button>
+    </Link>
   );
 };
 
