@@ -2,8 +2,9 @@ import { Button } from "react-bootstrap";
 import "./AdminTable.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
-const AdminTable = ({ data, columns, onEdit, onDelete }) => {
+const AdminTable = ({ data, columns, onDelete }) => {
   return (
     <table className="admin-table">
       <thead>
@@ -21,14 +22,13 @@ const AdminTable = ({ data, columns, onEdit, onDelete }) => {
             {columns.map((col, i) => (
               <td key={i}>{item[col.key]}</td>
             ))}
-
             <td>
-              <Button
-                className="btn-table-admin editar"
-                onClick={() => onEdit(item)}
+              <Link
+                className="btn btn-table-admin editar"
+                to={`/admin/products/create?id=${item._id}`}
               >
                 <BsPencilSquare className="d-flex" />
-              </Button>
+              </Link>
               <Button
                 className="btn-table-admin borrar"
                 onClick={() => onDelete(item)}

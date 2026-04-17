@@ -17,10 +17,6 @@ const AdminProducts = () => {
     }
   };
 
-  const handleEditProduct = (producto) => {
-    console.log("Editar producto", producto);
-  };
-
   const handleDeleteProduct = async (producto) => {
     Swal.fire({
       title: "Estas seguro de que quieres eliminar a este producto?",
@@ -77,7 +73,6 @@ const AdminProducts = () => {
       <AdminTable
         data={productos}
         columns={columnasProductos}
-        onEdit={handleEditProduct}
         onDelete={handleDeleteProduct}
       />
     </div>

@@ -1,41 +1,36 @@
 import "./CreateProduct.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import clientAxios, { configHeaders } from "../helpers/axios.helpers";
 import Swal from "sweetalert2";
 
 const CreateProduct = () => {
-  const [nombre, setNombre] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [precio, setPrecio] = useState(0);
+  const [form, setForm] = useState({
+    nombre: "",
+    descripcion: "",
+    precio: 0,
+    imagen: "url",
+  });
   const navigate = useNavigate();
+  const location = useLocation();
+  const idParams = new URLSearchParams(location.search).get("id");
 
   const crearProducto = async (e) => {
     e.preventDefault();
-
     try {
-      const res = await clientAxios.post(
-        "/productos",
-        {
-          nombre,
-          descripcion,
-          precio,
-          imagen: "url",
-        },
-        configHeaders,
-      );
-
+      const res = await clientAxios.post("/productos", form, configHeaders);
       if (res.status === 201) {
-        setNombre("");
-        setDescripcion("");
-        setPrecio("");
-
+        setForm({
+          nombre: "",
+          descripcion: "",
+          precio: "",
+          imagen: "url",
+        });
         Swal.fire({
           title: "Producto creado correctamente!",
           icon: "success",
         });
-
         navigate("/admin/products");
       }
     } catch (error) {
@@ -43,20 +38,58 @@ const CreateProduct = () => {
     }
   };
 
+  const obtenerProductoEditar = async () => {
+    const res = await clientAxios.get(`/productos/${idParams}`, configHeaders);
+    setForm(res.data.producto);
+  };
+
+  const editarProducto = async (e) => {
+    e.preventDefault();
+    try {
+      await clientAxios.put(`/productos/${idParams}`, form, configHeaders);
+      Swal.fire({
+        title: "Producto editado correctamente!",
+        icon: "success",
+      });
+      navigate("/admin/products");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (idParams) {
+      obtenerProductoEditar();
+    }
+  }, [idParams]);
+
   return (
     <Container fluid className="border">
       <Row>
+        <div className="d-flex justify-content-between align-items-center">
+          {idParams ? <h3>Editar producto</h3> : <h3>Crear producto</h3>}
+          <Link to="/admin/products" className="btn btn-primary">
+            Volver a productos
+          </Link>
+        </div>
         <Col sm="" md="" lg="5" className="border p-5">
           <div className="border text-center">Imagen</div>
         </Col>
         <Col sm="" md="" lg="7" className="border p-5">
-          <Form onSubmit={crearProducto} className="border p-3 border">
+          <Form
+            onSubmit={idParams ? editarProducto : crearProducto}
+            className="p-3 border"
+          >
             <Form.Group className="mb-3" controlId="formNombre">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Ingrese el nombre del producto"
-                onChange={(e) => setNombre(e.target.value)}
+                name="nombre"
+                value={form.nombre}
+                onChange={(e) =>
+                  setForm({ ...form, [e.target.name]: e.target.value })
+                }
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formDescripcion">
@@ -65,7 +98,11 @@ const CreateProduct = () => {
                 as="textarea"
                 rows={3}
                 placeholder="Ingrese la descripción del producto"
-                onChange={(e) => setDescripcion(e.target.value)}
+                name="descripcion"
+                value={form.descripcion}
+                onChange={(e) =>
+                  setForm({ ...form, [e.target.name]: e.target.value })
+                }
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPrecio">
@@ -73,11 +110,15 @@ const CreateProduct = () => {
               <Form.Control
                 type="number"
                 placeholder="Ingrese el precio del producto"
-                onChange={(e) => setPrecio(Number(e.target.value))}
+                name="precio"
+                value={form.precio}
+                onChange={(e) =>
+                  setForm({ ...form, precio: Number(e.target.value) })
+                }
               />
             </Form.Group>
             <Button type="submit" className="btn btn-primar w-100">
-              Crear Producto
+              {idParams ? "Editar producto" : "Crear producto"}
             </Button>
           </Form>
         </Col>
