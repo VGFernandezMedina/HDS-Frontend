@@ -120,23 +120,21 @@ const NavbarC = () => {
             <Nav className="gap-4">
               {token ? (
                 <>
-                  {rolUsuario === "usuario" && (
-                    <NavLink
-                      to="/user/cart"
-                      className="position-relative fuente-navbar py-2"
-                    >
-                      <BsCart2
-                        size={22}
-                        className={cantidad ? "cart-anim" : ""}
-                      />
+                  <NavLink
+                    to="/user/cart"
+                    className="position-relative fuente-navbar py-2"
+                  >
+                    <BsCart2
+                      size={22}
+                      className={cantidad ? "cart-anim" : ""}
+                    />
 
-                      {cantidad > 0 && (
-                        <span key={cantidad} className="cart-badge">
-                          {cantidad > 99 ? "99+" : cantidad}
-                        </span>
-                      )}
-                    </NavLink>
-                  )}
+                    {cantidad > 0 && (
+                      <span key={cantidad} className="cart-badge">
+                        {cantidad > 99 ? "99+" : cantidad}
+                      </span>
+                    )}
+                  </NavLink>
                   <NavLink
                     className="fuente-navbar py-2"
                     onClick={handleLogoutUser}
