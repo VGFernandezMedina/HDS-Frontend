@@ -12,12 +12,10 @@ const Sidebar = () => {
         <GoHome size={22} />
         Inicio
       </NavLink>
-      <br />
       <NavLink to="/admin/users">
         <FaUsers />
         Administrar Usuarios
       </NavLink>
-      <br />
       <NavLink to="/admin/products">
         <FaBoxes />
         Administrar Productos

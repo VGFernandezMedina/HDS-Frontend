@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const AddButton = ({ text, onClick }) => {
   return (
     <Link
-      className="btn btn-primary"
+      className="btn btn-custom-admin"
       to="/admin/products/create"
       onClick={onClick}
     >

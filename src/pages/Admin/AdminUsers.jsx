@@ -1,5 +1,4 @@
 import "./AdminUsers.css";
-/* import AddButton from "../../components/admin/AddButton"; */
 import Searcher from "../../components/admin/Searcher";
 import AdminTable from "../../components/admin/AdminTable";
 import { useEffect, useState } from "react";
@@ -38,11 +37,10 @@ const AdminUsers = () => {
   }, []);
 
   return (
-    <div className="container-users">
-      <div className="p-btn">
-        <p>Administrar usuarios</p>
+    <div className="container-admin">
+      <div className="title-admin">
+        <h5>Administrar usuarios</h5>
         <Searcher placeholder="Buscar usuario..." />
-        {/* <AddButton text="Agregar usuario" /> */}
       </div>
       <AdminTable
         data={usuarios}

@@ -47,10 +47,6 @@ const AdminProducts = () => {
         console.log(error);
       }
     });
-
-    /* const handleAddProducto = async () => {
-      console.log
-    }; */
   };
 
   const columnasProductos = [
@@ -64,9 +60,9 @@ const AdminProducts = () => {
   }, []);
 
   return (
-    <div className="container-users">
-      <div className="p-btn">
-        <p>Administrar productos</p>
+    <div className="container-admin">
+      <div className="title-admin">
+        <h5>Administrar productos</h5>
         <Searcher placeholder="Buscar producto..." />
         <AddButton text={"Agregar producto"} />
       </div>

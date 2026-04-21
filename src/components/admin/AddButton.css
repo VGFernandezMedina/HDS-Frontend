@@ -1,0 +1,13 @@
+.btn-custom-admin {
+  background-color: var(--primary-300);
+  color: white;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-custom-admin:hover {
+  background-color: var(--primary-500);
+  color: white;
+}

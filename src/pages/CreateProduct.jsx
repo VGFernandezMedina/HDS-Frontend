@@ -4,6 +4,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import clientAxios, { configHeaders } from "../helpers/axios.helpers";
 import Swal from "sweetalert2";
+import { IoMdArrowBack } from "react-icons/io";
 
 const CreateProduct = () => {
   const [form, setForm] = useState({
@@ -64,11 +65,12 @@ const CreateProduct = () => {
   }, [idParams]);
 
   return (
-    <Container fluid className="border">
-      <Row>
-        <div className="d-flex justify-content-between align-items-center">
-          {idParams ? <h3>Editar producto</h3> : <h3>Crear producto</h3>}
-          <Link to="/admin/products" className="btn btn-primary">
+    <Container fluid className="d-flex justify-content-center p-0">
+      <Row className="container-admin">
+        <div className="title-admin">
+          {idParams ? <h5>Editar producto</h5> : <h5>Crear producto</h5>}
+          <Link to="/admin/products" className="btn btn-custom-admin">
+            <IoMdArrowBack size={22} />
             Volver a productos
           </Link>
         </div>
