@@ -11,7 +11,7 @@ const CreateProduct = () => {
     nombre: "",
     descripcion: "",
     precio: 0,
-    imagen: "url",
+    /* imagen: "url", */
   });
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,14 +19,21 @@ const CreateProduct = () => {
 
   const crearProducto = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("nombre", form.nombre);
+    formData.append("descripcion", form.descripcion);
+    formData.append("precio", form.precio);
+    formData.append("imagen", form.imagen);
+
     try {
-      const res = await clientAxios.post("/productos", form, configHeaders);
+      const res = await clientAxios.post("/productos", formData, configHeaders);
       if (res.status === 201) {
         setForm({
           nombre: "",
           descripcion: "",
           precio: "",
-          imagen: "url",
+          /* imagen: "url", */
         });
         Swal.fire({
           title: "Producto creado correctamente!",
@@ -75,10 +82,24 @@ const CreateProduct = () => {
           </Link>
         </div>
         <Col sm="" md="" lg="5" className="border p-5">
-          <div className="border text-center">Imagen</div>
+          <div className="border p-3 text-center">
+            <Form.Group className="mb-3" controlId="formNombre">
+              <Form.Label>Imagen</Form.Label>
+              <Form.Control
+                type="file"
+                placeholder="Ingrese el nombre del producto"
+                name="imagen"
+                form="miFormulario"
+                onChange={(e) =>
+                  setForm({ ...form, imagen: e.target.files[0] })
+                }
+              />
+            </Form.Group>
+          </div>
         </Col>
         <Col sm="" md="" lg="7" className="border p-5">
           <Form
+            id="miFormulario"
             onSubmit={idParams ? editarProducto : crearProducto}
             className="p-3 border"
           >
