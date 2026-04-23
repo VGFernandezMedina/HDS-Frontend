@@ -5,6 +5,7 @@ import clientAxios, { configHeaders } from "../../helpers/axios.helpers";
 import "./AdminProducts.css";
 import AdminTable from "../../components/admin/AdminTable";
 import Swal from "sweetalert2";
+import { Badge } from "react-bootstrap";
 
 const AdminProducts = () => {
   const [productos, setProductos] = useState([]);
@@ -49,10 +50,31 @@ const AdminProducts = () => {
     });
   };
 
-  const columnasProductos = [
+  /* const columnasProductos = [
     { key: "nombre", label: "Nombre" },
     { key: "precio", label: "Precio" },
     { key: "estado", label: "Estado" },
+  ]; */
+
+  const columnasProductos = [
+    {
+      key: "imagen",
+      label: "Imagen",
+      render: (item) => <img src={item.imagen} alt="producto" width="60" />,
+    },
+    { key: "nombre", label: "Nombre" },
+    {
+      key: "precio",
+      label: "Precio",
+      render: (item) => `$ ${item.precio}`,
+    },
+    {
+      key: "estado",
+      label: "Estado",
+      render: (item) => (
+        <Badge className={`estado ${item.estado}`}>{item.estado}</Badge>
+      ),
+    },
   ];
 
   useEffect(() => {

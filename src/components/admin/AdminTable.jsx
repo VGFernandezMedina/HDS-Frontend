@@ -20,17 +20,7 @@ const AdminTable = ({ data, columns, onDelete }) => {
         {data.map((item, index) => (
           <tr key={index}>
             {columns.map((col, i) => (
-              <td key={i}>
-                {col.key === "precio" ? (
-                  `$ ${item.precio}`
-                ) : col.key === "estado" ? (
-                  <Badge className={`estado ${item.estado}`}>
-                    {item.estado}
-                  </Badge>
-                ) : (
-                  item[col.key]
-                )}
-              </td>
+              <td key={i}>{col.render ? col.render(item) : item[col.key]}</td>
             ))}
             <td>
               <Link

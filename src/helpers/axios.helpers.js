@@ -15,4 +15,11 @@ export const configHeaders = {
   },
 };
 
+export const configHeadersImage = {
+  headers: {
+    "content-type": "multipart/form-data",
+    auth: `${token}`,
+  },
+};
+
 export default clientAxios;

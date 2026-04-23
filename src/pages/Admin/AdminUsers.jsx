@@ -10,7 +10,6 @@ const AdminUsers = () => {
   const obtenerTodosLosUsuarios = async () => {
     try {
       const res = await clientAxios.get("/usuarios/", configHeaders);
-      console.log(res.data);
       setUsuarios(res.data.usuarios);
     } catch (error) {
       console.log(error);

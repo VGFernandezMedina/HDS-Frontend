@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./CardC.css";
 import { Button, Card } from "react-bootstrap";
-import camiseta from "/camisetaHDS.jpg";
+/* import camiseta from "/camisetaHDS.jpg"; */
 import Swal from "sweetalert2";
 import clientAxios, { configHeaders } from "../../helpers/axios.helpers";
 
-const CardC = ({ idProd, /* urlImagen, */ titulo, descripcion, precio }) => {
+const CardC = ({ idProd, urlImagen, titulo, descripcion, precio }) => {
   const navigate = useNavigate();
 
   const agregarProductoCarrito = async (idProducto) => {
@@ -54,8 +54,8 @@ const CardC = ({ idProd, /* urlImagen, */ titulo, descripcion, precio }) => {
       onClick={() => navigate(`/product-detail/${idProd}`)}
       style={{ cursor: "pointer" }}
     >
-      {/* <Card.Img variant="top" src={urlImagen} /> */}
-      <Card.Img variant="top" src={camiseta} />
+      <Card.Img variant="top" src={urlImagen} />
+      {/* <Card.Img variant="top" src={camiseta} /> */}
       <Card.Body>
         <Card.Title>{titulo}</Card.Title>
         <Card.Title>${precio}</Card.Title>
