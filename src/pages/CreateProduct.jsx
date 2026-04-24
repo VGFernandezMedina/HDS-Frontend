@@ -17,7 +17,7 @@ const CreateProduct = () => {
   });
   const [imagen, setImagen] = useState(null);
   const [imagenActual, setImagenActual] = useState("");
-
+  const [preview, setPreview] = useState(null); //preview img
   const navigate = useNavigate();
   const location = useLocation();
   const idParams = new URLSearchParams(location.search).get("id");
@@ -97,6 +97,28 @@ const CreateProduct = () => {
     }
   };
 
+  const handleImagenChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const tiposPermitidos = ["image/png", "image/jpeg", "image/jpeg"];
+
+    if (!tiposPermitidos.includes(file.type)) {
+      Swal.fire({
+        icon: "error",
+        title: "Formato inválido",
+        text: "Solo PNG, JPG o JPEG",
+      });
+
+      e.target.value = null; // Limpia el input file, sino el archivo inválido queda seleccionado
+      setImagen(null); // Limpia el estado de la imagen
+      setPreview(null); // Eliminás la preview (si había una previa)
+      return;
+    }
+    setImagen(file); // Si todo sale bien, guarda el archivo válido en el estado
+    setPreview(URL.createObjectURL(file)); // Sirve para mostrar la imagen antes de subirla
+  };
+
   useEffect(() => {
     if (idParams) {
       obtenerProductoEditar();
@@ -108,7 +130,7 @@ const CreateProduct = () => {
       <Form
         id="miFormulario"
         onSubmit={idParams ? editarProducto : crearProducto}
-        className="border w-100 d-flex justify-content-center"
+        className="form-table-admin"
       >
         <Row className="container-admin">
           <div className="title-admin">
@@ -118,16 +140,20 @@ const CreateProduct = () => {
               Volver a productos
             </Link>
           </div>
-          <Col sm="" md="" lg="5" className="border p-5">
-            <div className="border p-3 text-center">
-              {!imagen && imagenActual && (
-                <img src={imagenActual} alt="producto" width="200" />
+          <Col sm="" md="" lg="5" className="p-5">
+            <div className="div-img-table">
+              {preview ? (
+                <img src={preview} alt="preview" width="200" />
+              ) : (
+                imagenActual && (
+                  <img src={imagenActual} alt="producto" width="200" />
+                )
               )}
               <Form.Group className="mb-3" controlId="formImagen">
                 <Form.Control
                   type="file"
                   name="imagen"
-                  onChange={(e) => setImagen(e.target.files[0])}
+                  onChange={handleImagenChange}
                 />
               </Form.Group>
             </div>
@@ -137,7 +163,7 @@ const CreateProduct = () => {
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Ingrese el nombre del producto"
+                placeholder="Nombre del producto"
                 name="nombre"
                 value={form.nombre}
                 onChange={(e) =>
@@ -150,7 +176,7 @@ const CreateProduct = () => {
               <Form.Control
                 as="textarea"
                 rows={3}
-                placeholder="Ingrese la descripción del producto"
+                placeholder="Descripción del producto"
                 name="descripcion"
                 value={form.descripcion}
                 onChange={(e) =>
@@ -162,7 +188,7 @@ const CreateProduct = () => {
               <Form.Label>Precio</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Ingrese el precio del producto"
+                placeholder="Precio del producto"
                 name="precio"
                 value={form.precio}
                 onChange={(e) =>
@@ -170,7 +196,7 @@ const CreateProduct = () => {
                 }
               />
             </Form.Group>
-            <Button type="submit" className="btn btn-primar w-100">
+            <Button type="submit" className="btn-form-admin">
               {idParams ? "Editar producto" : "Crear producto"}
             </Button>
           </Col>

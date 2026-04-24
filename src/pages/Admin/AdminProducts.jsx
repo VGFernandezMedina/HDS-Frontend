@@ -66,7 +66,7 @@ const AdminProducts = () => {
     {
       key: "precio",
       label: "Precio",
-      render: (item) => `$ ${item.precio}`,
+      render: (item) => `$${item.precio}`,
     },
     {
       key: "estado",
