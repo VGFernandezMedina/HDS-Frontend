@@ -1,5 +1,5 @@
 .btn-custom-admin {
-  background-color: var(--primary-300);
+  background-color: var(--primary-700);
   color: white;
   transition: 0.5s;
   display: flex;
@@ -8,6 +8,10 @@
 }
 
 .btn-custom-admin:hover {
-  background-color: var(--primary-500);
+  background-color: var(--primary-600);
   color: white;
+}
+.btn-custom-admin:focus {
+  background-color: var(--primary-700) !important;
+  color: white !important;
 }

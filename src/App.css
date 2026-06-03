@@ -1,11 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
 
 :root {
+  --primary-50: #fff5f5;
   --primary-100: #ffe5e5;
-  --primary-300: #ff4d4d;
+  --primary-200: #ffb3b3;
+  --primary-300: #ff8080;
+  --primary-400: #ff4d4d;
   --primary-500: #ff1e1e;
+  --primary-600: #e60000;
   --primary-700: #cc0000;
-  --primary-900: #4c0203;
+  --primary-800: #990000;
+  --primary-900: #660000;
 
   --gray-100: #f5f5f5;
   --gray-300: #bdbdbd;
