@@ -1,0 +1,22 @@
+.banner-tienda {
+  height: 280px;
+
+  background-image: url("/BannerShop.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.container-shop {
+  background-color: black;
+  color: white;
+}
+
+.col-filtros {
+  /* border: 1px solid white; */
+  display: flex;
+  justify-content: center;
+}
+
+/* .col-productos {
+  border: 1px solid white;
+} */

@@ -1,0 +1,9 @@
+.div-outlet {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid blue; */
+  width: 100%;
+  height: auto;
+  padding: 10px 20px;
+  background-color: rgb(230, 230, 230);
+}
