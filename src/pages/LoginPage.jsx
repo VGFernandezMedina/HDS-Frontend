@@ -3,7 +3,7 @@ import FormC from "../components/form/FormC";
 
 const LoginPage = () => {
   return (
-    <Container fluid className="container-register">
+    <Container fluid>
       <FormC idPage="login" />
     </Container>
   );

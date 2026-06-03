@@ -4,7 +4,7 @@ import "./RegisterPage.css";
 
 const RegisterPage = () => {
   return (
-    <Container fluid className="container-register">
+    <Container fluid>
       <FormC idPage="register" />
     </Container>
   );

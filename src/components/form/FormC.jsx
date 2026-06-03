@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import "./FormC.css";
 import { useState } from "react";
 import clientAxios from "../../helpers/axios.helpers";
@@ -175,108 +175,115 @@ const FormC = ({ idPage }) => {
   };
 
   return (
-    <>
-      <div className="div-form">
-        <h3>Inicia sesión en tu cuenta</h3>
-        <Form
-          className="form-reg-login"
-          noValidate
-          onSubmit={
-            idPage === "register"
-              ? handleClickRegisterForm
-              : handleChangeLoginForm
-          }
-        >
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label>Nombre de usuario </Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Nombre"
-              name="nombreUsuario"
-              value={formulario.nombreUsuario}
-              onChange={handleChangeRegisterForm}
-              isInvalid={!!errores.nombreUsuario}
-              required
-              spellCheck={false}
-              autoCapitalize="none"
-              autoCorrect="off"
-            />
-            <Form.Control.Feedback type="invalid">
-              {errores.nombreUsuario}
-            </Form.Control.Feedback>
-          </Form.Group>
+    <Container fluid className="container-form p-0">
+      <Row className="h-100">
+        <Col sm="" md="" lg="6" className="border p-0 h-100">
+          <video className="video-login" autoPlay muted loop>
+            <source src="/form.mp4" type="video/mp4" />
+          </video>
+        </Col>
+        <Col sm="" md="" lg="6" className="border h-100">
+          <div className="div-form">
+            <h3>Inicia sesión en tu cuenta</h3>
+            <Form
+              className="form-reg-login"
+              noValidate
+              onSubmit={
+                idPage === "register"
+                  ? handleClickRegisterForm
+                  : handleChangeLoginForm
+              }
+            >
+              <Form.Group className="mb-3" controlId="formBasicName">
+                <Form.Label>Nombre de usuario </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Nombre"
+                  name="nombreUsuario"
+                  value={formulario.nombreUsuario}
+                  onChange={handleChangeRegisterForm}
+                  isInvalid={!!errores.nombreUsuario}
+                  required
+                  spellCheck={false}
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errores.nombreUsuario}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-          {idPage === "register" && (
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Correo </Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Correo"
-                name="emailUsuario"
-                value={formulario.emailUsuario}
-                onChange={handleChangeRegisterForm}
-                isInvalid={!!errores.emailUsuario}
-                required
-              />
-              <Form.Control.Feedback type="invalid">
-                {errores.emailUsuario}
-              </Form.Control.Feedback>
-            </Form.Group>
-          )}
+              {idPage === "register" && (
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Correo </Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Correo"
+                    name="emailUsuario"
+                    value={formulario.emailUsuario}
+                    onChange={handleChangeRegisterForm}
+                    isInvalid={!!errores.emailUsuario}
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errores.emailUsuario}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              )}
 
-          <Form.Group
-            className={idPage === "login" ? "mb-1" : "mb-3"}
-            controlId="formBasicPassword1"
-          >
-            <Form.Label>Contraseña</Form.Label>
-            {/* <div className="input-password-container"> */}
-            <Form.Control
-              type="password"
-              placeholder="Contraseña"
-              name="contraseniaUsuario"
-              value={formulario.contraseniaUsuario}
-              onChange={handleChangeRegisterForm}
-              isInvalid={!!errores.contraseniaUsuario}
-              required
-            />
+              <Form.Group
+                className={idPage === "login" ? "mb-1" : "mb-3"}
+                controlId="formBasicPassword1"
+              >
+                <Form.Label>Contraseña</Form.Label>
+                {/* <div className="input-password-container"> */}
+                <Form.Control
+                  type="password"
+                  placeholder="Contraseña"
+                  name="contraseniaUsuario"
+                  value={formulario.contraseniaUsuario}
+                  onChange={handleChangeRegisterForm}
+                  isInvalid={!!errores.contraseniaUsuario}
+                  required
+                />
 
-            {/* <span
+                {/* <span
                 className="eye-icon position"
                 onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
               >
                 {mostrarContrasenia ? <LuEye /> : <LuEyeClosed />}
               </span>
             </div> */}
-            <Form.Control.Feedback type="invalid">
-              {errores.contraseniaUsuario}
-            </Form.Control.Feedback>
-          </Form.Group>
+                <Form.Control.Feedback type="invalid">
+                  {errores.contraseniaUsuario}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-          {idPage === "login" && (
-            <div>
-              <p className="text-end m-0">
-                <Link to="" className="forgot-link">
-                  Olvidaste tu contraseña?
-                </Link>
-              </p>
-            </div>
-          )}
+              {idPage === "login" && (
+                <div>
+                  <p className="text-end m-0">
+                    <Link to="" className="forgot-link">
+                      Olvidaste tu contraseña?
+                    </Link>
+                  </p>
+                </div>
+              )}
 
-          {idPage === "register" && (
-            <Form.Group className="mb-3" controlId="formBasicPassword2">
-              <Form.Label>Repetir contraseña</Form.Label>
-              {/* <div className="input-password-container"> */}
-              <Form.Control
-                type="password"
-                placeholder="Repetir contraseña"
-                name="repContraseniaUsuario"
-                value={formulario.repContraseniaUsuario}
-                onChange={handleChangeRegisterForm}
-                isInvalid={!!errores.repContraseniaUsuario}
-                required
-              />
+              {idPage === "register" && (
+                <Form.Group className="mb-3" controlId="formBasicPassword2">
+                  <Form.Label>Repetir contraseña</Form.Label>
+                  {/* <div className="input-password-container"> */}
+                  <Form.Control
+                    type="password"
+                    placeholder="Repetir contraseña"
+                    name="repContraseniaUsuario"
+                    value={formulario.repContraseniaUsuario}
+                    onChange={handleChangeRegisterForm}
+                    isInvalid={!!errores.repContraseniaUsuario}
+                    required
+                  />
 
-              {/* <span
+                  {/* <span
                   className="eye-icon"
                   onClick={() =>
                     setMostrarRepContrasenia(!mostrarRepContrasenia)
@@ -285,18 +292,20 @@ const FormC = ({ idPage }) => {
                   {mostrarRepContrasenia ? <LuEye /> : <LuEyeClosed />}
                 </span>
               </div> */}
-              <Form.Control.Feedback type="invalid">
-                {errores.repContraseniaUsuario}
-              </Form.Control.Feedback>
-            </Form.Group>
-          )}
+                  <Form.Control.Feedback type="invalid">
+                    {errores.repContraseniaUsuario}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              )}
 
-          <Button variant="primary" type="submit" className="btn-login">
-            {idPage === "register" ? "Registrarme" : "Iniciar sesión"}
-          </Button>
-        </Form>
-      </div>
-    </>
+              <Button variant="primary" type="submit" className="btn-login">
+                {idPage === "register" ? "Registrarme" : "Iniciar sesión"}
+              </Button>
+            </Form>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
