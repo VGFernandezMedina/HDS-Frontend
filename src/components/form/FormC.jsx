@@ -348,14 +348,17 @@ const FormC = ({ idPage }) => {
                 <div className="social-buttons">
                   <Button variant="light" className="social-btn">
                     <FcGoogle size={20} />
+                    <span>Google</span>
                   </Button>
 
                   <Button variant="light" className="social-btn">
-                    <FaFacebookF size={20} />
+                    <FaFacebookF color="#1877F2" size={20} />
+                    <span>Facebook</span>
                   </Button>
 
                   <Button variant="light" className="social-btn">
-                    <FaGithub size={20} />
+                    <FaGithub color="#ffffff" size={20} />
+                    <span>Github</span>
                   </Button>
                 </div>
               </div>
