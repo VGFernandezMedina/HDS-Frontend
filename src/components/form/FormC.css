@@ -55,8 +55,8 @@
 .video-overlay h1 {
   font-family: "Oswald", sans-serif;
   letter-spacing: 2px;
-  font-size: 48px;
-  font-weight: 700;
+  font-size: 44px;
+  font-weight: 400;
   margin-top: 10px;
 }
 .video-overlay p {
@@ -257,4 +257,8 @@
   border: 1px solid #504f4f;
   color: #c1c1c1;
   transform: translateY(-2px);
+}
+.social-btn:active {
+  background-color: rgb(14, 14, 14) !important;
+  color: #c1c1c1 !important;
 }
