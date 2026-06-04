@@ -300,7 +300,7 @@ const FormC = ({ idPage }) => {
 
               {idPage === "login" && (
                 <div>
-                  <p className="text-end m-0">
+                  <p className="text-end mb-4">
                     <Link to="" className="forgot-link">
                       Olvidaste tu contraseña?
                     </Link>

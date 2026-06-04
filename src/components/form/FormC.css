@@ -21,6 +21,17 @@
   object-fit: cover;
 }
 
+.div-left::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 100%;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.95), transparent);
+  pointer-events: none;
+}
+
 .video-overlay {
   position: absolute;
   inset: 0;
@@ -30,7 +41,6 @@
   align-items: center;
   text-align: center;
   color: white;
-  gap: 10px;
 }
 .logo-form {
   height: 100px;
@@ -46,10 +56,13 @@
   letter-spacing: 2px;
   font-size: 48px;
   font-weight: 700;
+  margin-top: 10px;
 }
 .video-overlay p {
   max-width: 500px;
   font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 50px;
 }
 
 /*todo COLUMNA 2  */
@@ -57,7 +70,8 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 18px;
+  background: black;
 }
 
 .btn-return-form {
@@ -66,7 +80,8 @@
   transition: all 0.3s ease;
   width: fit-content;
   border: none;
-  font-size: 16px;
+  font-size: 14px;
+  color: white;
 }
 .btn-return-form:hover {
   color: var(--primary-700);
@@ -76,25 +91,44 @@
   border: none;
 }
 
+.div-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex: 1;
+  color: white;
+}
+.div-form h2 {
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 1px;
+  font-size: 28px;
+}
+.div-form p {
+  font-size: 14px;
+}
+
 .register-link {
-  color: var(--primary-700);
+  color: var(--primary-500);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
 }
 .register-link:hover {
   text-decoration: underline;
 }
 
 .form-reg-login {
-  width: 400px;
+  width: 100%;
+  max-width: 450px;
 }
 
-.input-password-container {
+/* .input-password-container {
   position: relative;
 }
 .input-password-container input {
   padding-right: 60px;
-}
+} */
 
 /* .eye-icon {
   position: absolute;
@@ -110,32 +144,25 @@
   color: white;
 } */
 
-.div-form {
+.form-reg-login .form-group {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  background-color: white;
-  gap: 30px;
-  flex: 1;
 }
-
+.form-reg-login .form-label {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
 .form-reg-login .form-control {
   color: black;
   border: 2px solid #bbbbbb;
+  padding: 3px 5px;
 }
 .form-reg-login .form-control:focus {
   color: black;
   border-color: var(--gray-300);
-  box-shadow: 0 0 5px var(--gray-500);
+  box-shadow: 0 0 5px white;
 }
 .form-reg-login .form-control::placeholder {
-  color: #bbbbbb;
-}
-.form-reg-login .form-group {
-  display: flex;
-  gap: 20px;
+  color: #929292;
 }
 
 .form-reg-login input:-webkit-autofill,
@@ -144,18 +171,21 @@
 .form-reg-login input:-webkit-autofill:active {
   -webkit-text-fill-color: black !important;
   caret-color: black !important;
-
   box-shadow: 0 0 0px 1000px var(--gray-900) inset !important;
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
-
   border: 1px solid var(--gray-700) !important;
-
   background-clip: content-box !important;
 }
 
+.form-reg-login .invalid-feedback {
+  margin-top: 1px;
+}
+
 .btn-login {
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 1px;
   width: 100%;
-  padding: 10px 0;
+  padding: 8px 0;
   background-color: var(--primary-800);
   border: 1px solid var(--primary-800);
   transition: 0.5s;
@@ -170,7 +200,7 @@
 }
 
 .forgot-link {
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 0.9rem;
 }
@@ -179,21 +209,21 @@
 }
 
 .social-login-container {
-  margin-top: 2rem;
+  margin-top: 18px;
 }
 
 .separator {
   display: flex;
   align-items: center;
   text-align: center;
-  color: #777;
-  margin-bottom: 1.5rem;
+  color: #c1c1c1;
+  margin-bottom: 18px;
 }
 .separator::before,
 .separator::after {
   content: "";
   flex: 1;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #c1c1c1;
 }
 .separator span {
   padding: 0 1rem;
