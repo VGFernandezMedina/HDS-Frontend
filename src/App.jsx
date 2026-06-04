@@ -17,8 +17,79 @@ import AdminProducts from "./pages/Admin/AdminProducts";
 import AdminUsers from "./pages/Admin/AdminUsers";
 import AdminLayout from "./components/adminLayout/AdminLayout";
 import CreateProduct from "./pages/CreateProduct";
+import { useLocation } from "react-router-dom";
 
-const App = () => {
+function AppContent() {
+  const location = useLocation();
+
+  const hideLayout =
+    location.pathname === "/login" || location.pathname === "/register";
+
+  return (
+    <>
+      {!hideLayout && <NavbarC />}
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/product-detail/:id" element={<ProductDetail />} />
+        <Route
+          path="/user/cart"
+          element={
+            <PrivateRoute rol="usuario">
+              <CartPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/user/favs"
+          element={
+            <PrivateRoute rol="usuario">
+              <FavPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            <PrivateRoute rol="usuario">
+              <UserPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute rol="admin">
+              <AdminLayout />
+            </PrivateRoute>
+          }
+        >
+          <Route index element={<AdminHome />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="products">
+            <Route index element={<AdminProducts />} />
+            <Route path="create" element={<CreateProduct />} />
+          </Route>
+        </Route>
+      </Routes>
+
+      {!hideLayout && <Footer />}
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
+
+/* const App = () => {
   return (
     <Router>
       <NavbarC />
@@ -67,18 +138,21 @@ const App = () => {
             <Route path="create" element={<CreateProduct />} />
           </Route>
         </Route>
-        {/* <Route
-          path="/admin"
-          element={
-            <PrivateRoute rol="admin">
-              <AdminPage />
-            </PrivateRoute>
-          }
-        /> */}
       </Routes>
       <Footer />
     </Router>
   );
 };
 
-export default App;
+export default App; */
+
+{
+  /* <Route
+  path="/admin"
+  element={
+    <PrivateRoute rol="admin">
+      <AdminPage />
+    </PrivateRoute>
+  }
+/> */
+}

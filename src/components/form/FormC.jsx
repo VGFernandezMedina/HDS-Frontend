@@ -1,10 +1,14 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import "./FormC.css";
 import { useState } from "react";
 import clientAxios from "../../helpers/axios.helpers";
-import { LuEye, LuEyeClosed } from "react-icons/lu";
+import { LuArrowLeft, LuEye, LuEyeClosed } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { RiArrowLeftSLine } from "react-icons/ri";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebookF, FaGithub } from "react-icons/fa";
+import imgLogo from "/favicon.png";
 
 const FormC = ({ idPage }) => {
   /* const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
@@ -175,108 +179,150 @@ const FormC = ({ idPage }) => {
   };
 
   return (
-    <>
-      <div className="div-form">
-        <h3>Inicia sesión en tu cuenta</h3>
-        <Form
-          className="form-reg-login"
-          noValidate
-          onSubmit={
-            idPage === "register"
-              ? handleClickRegisterForm
-              : handleChangeLoginForm
-          }
-        >
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label>Nombre de usuario </Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Nombre"
-              name="nombreUsuario"
-              value={formulario.nombreUsuario}
-              onChange={handleChangeRegisterForm}
-              isInvalid={!!errores.nombreUsuario}
-              required
-              spellCheck={false}
-              autoCapitalize="none"
-              autoCorrect="off"
-            />
-            <Form.Control.Feedback type="invalid">
-              {errores.nombreUsuario}
-            </Form.Control.Feedback>
-          </Form.Group>
+    <Container fluid className="container-form">
+      <Row className="h-100">
+        <Col sm="" md="" lg="6" className="div-left">
+          <video className="video-login" autoPlay muted loop>
+            <source src="/form-video.mp4" type="video/mp4" />
+          </video>
+          <div className="video-overlay">
+            <Image className="logo-form" src={imgLogo} />
+            <h1>Bienvenidos a HDS</h1>
+            <p>
+              Un grupo de amigos que comparte la pasión por el deporte y el
+              gaming.
+            </p>
+          </div>
+        </Col>
+        <Col sm="" md="" lg="6" className="div-right">
+          <Link className="btn btn-return-form" to="/">
+            <RiArrowLeftSLine size={24} />
+            Volver al inicio
+          </Link>
+          <div className="div-form">
+            <div>
+              {idPage === "login" && (
+                <>
+                  <h2>Inicia sesión en tu cuenta</h2>
+                  <p className="text-center m-0">
+                    ¿No tienes cuenta?{" "}
+                    <Link to="/register" className="register-link">
+                      Regístrate aquí
+                    </Link>
+                  </p>
+                </>
+              )}
+              {idPage === "register" && (
+                <>
+                  <h2>Registra tu cuenta</h2>
+                  <p className="text-center m-0">
+                    ¿Ya tienes cuenta?{" "}
+                    <Link to="/login" className="register-link">
+                      Inicia sesión
+                    </Link>
+                  </p>
+                </>
+              )}
+            </div>
+            <Form
+              className="form-reg-login"
+              noValidate
+              onSubmit={
+                idPage === "register"
+                  ? handleClickRegisterForm
+                  : handleChangeLoginForm
+              }
+            >
+              <Form.Group className="mb-3" controlId="formBasicName">
+                <Form.Label>Nombre de usuario </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Nombre"
+                  name="nombreUsuario"
+                  value={formulario.nombreUsuario}
+                  onChange={handleChangeRegisterForm}
+                  isInvalid={!!errores.nombreUsuario}
+                  required
+                  spellCheck={false}
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errores.nombreUsuario}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-          {idPage === "register" && (
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Correo </Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Correo"
-                name="emailUsuario"
-                value={formulario.emailUsuario}
-                onChange={handleChangeRegisterForm}
-                isInvalid={!!errores.emailUsuario}
-                required
-              />
-              <Form.Control.Feedback type="invalid">
-                {errores.emailUsuario}
-              </Form.Control.Feedback>
-            </Form.Group>
-          )}
+              {idPage === "register" && (
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Correo </Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Correo"
+                    name="emailUsuario"
+                    value={formulario.emailUsuario}
+                    onChange={handleChangeRegisterForm}
+                    isInvalid={!!errores.emailUsuario}
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errores.emailUsuario}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              )}
 
-          <Form.Group
-            className={idPage === "login" ? "mb-1" : "mb-3"}
-            controlId="formBasicPassword1"
-          >
-            <Form.Label>Contraseña</Form.Label>
-            {/* <div className="input-password-container"> */}
-            <Form.Control
-              type="password"
-              placeholder="Contraseña"
-              name="contraseniaUsuario"
-              value={formulario.contraseniaUsuario}
-              onChange={handleChangeRegisterForm}
-              isInvalid={!!errores.contraseniaUsuario}
-              required
-            />
+              <Form.Group
+                className={idPage === "login" ? "mb-1" : "mb-3"}
+                controlId="formBasicPassword1"
+              >
+                <Form.Label>Contraseña</Form.Label>
+                {/* <div className="input-password-container"> */}
+                <Form.Control
+                  type="password"
+                  placeholder="Contraseña"
+                  name="contraseniaUsuario"
+                  value={formulario.contraseniaUsuario}
+                  onChange={handleChangeRegisterForm}
+                  isInvalid={!!errores.contraseniaUsuario}
+                  required
+                />
 
-            {/* <span
+                {/* <span
                 className="eye-icon position"
                 onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
               >
                 {mostrarContrasenia ? <LuEye /> : <LuEyeClosed />}
               </span>
             </div> */}
-            <Form.Control.Feedback type="invalid">
-              {errores.contraseniaUsuario}
-            </Form.Control.Feedback>
-          </Form.Group>
+                <Form.Control.Feedback type="invalid">
+                  {errores.contraseniaUsuario}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-          {idPage === "login" && (
-            <div>
-              <p className="text-end m-0">
-                <Link to="" className="forgot-link">
-                  Olvidaste tu contraseña?
-                </Link>
-              </p>
-            </div>
-          )}
+              {idPage === "login" && (
+                <div>
+                  <p className="text-end mb-4">
+                    <Link to="" className="forgot-link">
+                      Olvidaste tu contraseña?
+                    </Link>
+                  </p>
+                </div>
+              )}
 
-          {idPage === "register" && (
-            <Form.Group className="mb-3" controlId="formBasicPassword2">
-              <Form.Label>Repetir contraseña</Form.Label>
-              {/* <div className="input-password-container"> */}
-              <Form.Control
-                type="password"
-                placeholder="Repetir contraseña"
-                name="repContraseniaUsuario"
-                value={formulario.repContraseniaUsuario}
-                onChange={handleChangeRegisterForm}
-                isInvalid={!!errores.repContraseniaUsuario}
-                required
-              />
+              {idPage === "register" && (
+                <Form.Group className="mb-3" controlId="formBasicPassword2">
+                  <Form.Label>Repetir contraseña</Form.Label>
+                  {/* <div className="input-password-container"> */}
+                  <Form.Control
+                    type="password"
+                    placeholder="Repetir contraseña"
+                    name="repContraseniaUsuario"
+                    value={formulario.repContraseniaUsuario}
+                    onChange={handleChangeRegisterForm}
+                    isInvalid={!!errores.repContraseniaUsuario}
+                    required
+                  />
 
-              {/* <span
+                  {/* <span
                   className="eye-icon"
                   onClick={() =>
                     setMostrarRepContrasenia(!mostrarRepContrasenia)
@@ -285,18 +331,42 @@ const FormC = ({ idPage }) => {
                   {mostrarRepContrasenia ? <LuEye /> : <LuEyeClosed />}
                 </span>
               </div> */}
-              <Form.Control.Feedback type="invalid">
-                {errores.repContraseniaUsuario}
-              </Form.Control.Feedback>
-            </Form.Group>
-          )}
+                  <Form.Control.Feedback type="invalid">
+                    {errores.repContraseniaUsuario}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              )}
 
-          <Button variant="primary" type="submit" className="btn-login">
-            {idPage === "register" ? "Registrarme" : "Iniciar sesión"}
-          </Button>
-        </Form>
-      </div>
-    </>
+              <Button variant="primary" type="submit" className="btn-login">
+                {idPage === "register" ? "Registrarme" : "Iniciar sesión"}
+              </Button>
+              <div className="social-login-container">
+                <div className="separator">
+                  <span>o continúa con</span>
+                </div>
+
+                <div className="social-buttons">
+                  <Button variant="light" className="social-btn">
+                    <FcGoogle size={20} />
+                    <span>Google</span>
+                  </Button>
+
+                  <Button variant="light" className="social-btn">
+                    <FaFacebookF color="#1877F2" size={20} />
+                    <span>Facebook</span>
+                  </Button>
+
+                  <Button variant="light" className="social-btn">
+                    <FaGithub color="#ffffff" size={20} />
+                    <span>Github</span>
+                  </Button>
+                </div>
+              </div>
+            </Form>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
