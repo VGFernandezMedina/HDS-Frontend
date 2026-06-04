@@ -1,10 +1,14 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import "./FormC.css";
 import { useState } from "react";
 import clientAxios from "../../helpers/axios.helpers";
-import { LuEye, LuEyeClosed } from "react-icons/lu";
+import { LuArrowLeft, LuEye, LuEyeClosed } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { RiArrowLeftSLine } from "react-icons/ri";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebookF, FaGithub } from "react-icons/fa";
+import imgLogo from "/favicon.png";
 
 const FormC = ({ idPage }) => {
   /* const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
@@ -175,16 +179,51 @@ const FormC = ({ idPage }) => {
   };
 
   return (
-    <Container fluid className="container-form p-0">
+    <Container fluid className="container-form">
       <Row className="h-100">
-        <Col sm="" md="" lg="6" className="border p-0 h-100">
+        <Col sm="" md="" lg="6" className="div-left">
           <video className="video-login" autoPlay muted loop>
-            <source src="/form.mp4" type="video/mp4" />
+            <source src="/form-video.mp4" type="video/mp4" />
           </video>
+          <div className="video-overlay">
+            <Image className="logo-form" src={imgLogo} />
+            <h1>Bienvenidos a HDS</h1>
+            <p>
+              Un grupo de amigos que comparte la pasión por el deporte y el
+              gaming.
+            </p>
+          </div>
         </Col>
-        <Col sm="" md="" lg="6" className="border h-100">
+        <Col sm="" md="" lg="6" className="div-right">
+          <Link className="btn btn-return-form" to="/">
+            <RiArrowLeftSLine size={24} />
+            Volver al inicio
+          </Link>
           <div className="div-form">
-            <h3>Inicia sesión en tu cuenta</h3>
+            <div>
+              {idPage === "login" && (
+                <>
+                  <h2>Inicia sesión en tu cuenta</h2>
+                  <p className="text-center m-0">
+                    ¿No tienes cuenta?{" "}
+                    <Link to="/register" className="register-link">
+                      Regístrate aquí
+                    </Link>
+                  </p>
+                </>
+              )}
+              {idPage === "register" && (
+                <>
+                  <h2>Registra tu cuenta</h2>
+                  <p className="text-center m-0">
+                    ¿Ya tienes cuenta?{" "}
+                    <Link to="/login" className="register-link">
+                      Inicia sesión
+                    </Link>
+                  </p>
+                </>
+              )}
+            </div>
             <Form
               className="form-reg-login"
               noValidate
@@ -301,6 +340,25 @@ const FormC = ({ idPage }) => {
               <Button variant="primary" type="submit" className="btn-login">
                 {idPage === "register" ? "Registrarme" : "Iniciar sesión"}
               </Button>
+              <div className="social-login-container">
+                <div className="separator">
+                  <span>o continúa con</span>
+                </div>
+
+                <div className="social-buttons">
+                  <Button variant="light" className="social-btn">
+                    <FcGoogle size={20} />
+                  </Button>
+
+                  <Button variant="light" className="social-btn">
+                    <FaFacebookF size={20} />
+                  </Button>
+
+                  <Button variant="light" className="social-btn">
+                    <FaGithub size={20} />
+                  </Button>
+                </div>
+              </div>
             </Form>
           </div>
         </Col>
