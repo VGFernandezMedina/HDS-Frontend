@@ -145,8 +145,8 @@
   color: white;
 } */
 
-.form-reg-login .form-group {
-  display: flex;
+.form-group-custom {
+  margin-bottom: 3%;
 }
 .form-reg-login .form-label {
   font-size: 14px;
@@ -261,4 +261,70 @@
 .social-btn:active {
   background-color: rgb(14, 14, 14) !important;
   color: #c1c1c1 !important;
+}
+.icon-btn-form {
+  font-size: 20px;
+}
+
+@media (max-width: 576px) {
+  .social-buttons {
+    display: flex;
+    gap: 15px;
+  }
+
+  .btn-return-form {
+    font-size: 12px;
+  }
+
+  .div-form {
+    gap: 20px;
+  }
+  .div-form h2 {
+    font-size: 22px;
+  }
+  .div-form p {
+    font-size: 12px;
+  }
+
+  .form-group-custom {
+    margin-bottom: 2%;
+  }
+  .form-reg-login .form-label {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+  .form-reg-login .form-control {
+    padding: 2px 5px;
+    font-size: 14px;
+  }
+
+  .form-reg-login .invalid-feedback {
+    font-size: 12px;
+  }
+
+  .btn-login {
+    letter-spacing: 1px;
+    padding: 4px 0;
+    font-size: 14px;
+  }
+
+  .forgot-link {
+    font-size: 0.8rem;
+  }
+
+  .social-login-container {
+    margin-top: 12px;
+  }
+
+  .social-btn {
+    padding: 8px 0px;
+    font-size: 10px;
+    gap: 5px;
+  }
+  .div-right {
+    padding: 12px;
+  }
+  .icon-btn-form {
+    font-size: 16px;
+  }
 }
