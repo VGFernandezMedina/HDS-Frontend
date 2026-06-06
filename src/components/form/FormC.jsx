@@ -199,7 +199,11 @@ const FormC = ({ idPage }) => {
             <RiArrowLeftSLine size={24} />
             Volver al inicio
           </Link>
+
           <div className="div-form">
+            <div className="mobile-brand d-lg-none">
+              <Image src={imgLogo} alt="HDS" className="mobile-logo" />
+            </div>
             <div>
               {idPage === "login" && (
                 <>
