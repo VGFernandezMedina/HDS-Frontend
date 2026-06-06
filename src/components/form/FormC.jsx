@@ -1,4 +1,12 @@
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  Image,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import "./FormC.css";
 import { useState } from "react";
 import clientAxios from "../../helpers/axios.helpers";
@@ -11,6 +19,7 @@ import { FaFacebookF, FaGithub } from "react-icons/fa";
 import imgLogo from "/favicon.png";
 
 const FormC = ({ idPage }) => {
+  const [loading, setLoading] = useState(false);
   /* const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
   const [mostrarRepContrasenia, setMostrarRepContrasenia] = useState(false); */
   const [formulario, setFormulario] = useState({
@@ -138,6 +147,8 @@ const FormC = ({ idPage }) => {
     setErrores(nuevosErrores);
 
     if (nombre && contrasenia) {
+      setLoading(true);
+
       try {
         const res = await clientAxios.post("/usuarios/login", {
           nombreUsuario: nombre,
@@ -174,6 +185,8 @@ const FormC = ({ idPage }) => {
             icon: "error",
           });
         }
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -348,8 +361,24 @@ const FormC = ({ idPage }) => {
               )}
 
               <Button variant="primary" type="submit" className="btn-login">
-                {idPage === "register" ? "Registrarme" : "Iniciar sesión"}
+                {loading ? (
+                  <>
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />{" "}
+                    Enviando...
+                  </>
+                ) : idPage === "register" ? (
+                  "Registrarme"
+                ) : (
+                  "Iniciar sesión"
+                )}
               </Button>
+
               <div className="social-login-container ">
                 <div className="separator">
                   <span>o continúa con</span>
