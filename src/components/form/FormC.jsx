@@ -1,4 +1,12 @@
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  Image,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import "./FormC.css";
 import { useState } from "react";
 import clientAxios from "../../helpers/axios.helpers";
@@ -11,6 +19,7 @@ import { FaFacebookF, FaGithub } from "react-icons/fa";
 import imgLogo from "/favicon.png";
 
 const FormC = ({ idPage }) => {
+  const [loading, setLoading] = useState(false);
   /* const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
   const [mostrarRepContrasenia, setMostrarRepContrasenia] = useState(false); */
   const [formulario, setFormulario] = useState({
@@ -138,6 +147,8 @@ const FormC = ({ idPage }) => {
     setErrores(nuevosErrores);
 
     if (nombre && contrasenia) {
+      setLoading(true);
+
       try {
         const res = await clientAxios.post("/usuarios/login", {
           nombreUsuario: nombre,
@@ -174,6 +185,8 @@ const FormC = ({ idPage }) => {
             icon: "error",
           });
         }
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -181,25 +194,29 @@ const FormC = ({ idPage }) => {
   return (
     <Container fluid className="container-form">
       <Row className="h-100">
-        <Col sm="" md="" lg="6" className="div-left">
+        <Col lg="6" className="div-left d-none d-lg-flex">
           <video className="video-login" autoPlay muted loop>
             <source src="/form-video.mp4" type="video/mp4" />
           </video>
           <div className="video-overlay">
             <Image className="logo-form" src={imgLogo} />
-            <h1>Bienvenidos a HDS</h1>
+            <h1>Bienvenido/a a HDS</h1>
             <p>
               Un grupo de amigos que comparte la pasión por el deporte y el
               gaming.
             </p>
           </div>
         </Col>
-        <Col sm="" md="" lg="6" className="div-right">
+        <Col xs={12} lg="6" className="div-right">
           <Link className="btn btn-return-form" to="/">
             <RiArrowLeftSLine size={24} />
             Volver al inicio
           </Link>
+
           <div className="div-form">
+            <div className="mobile-brand d-lg-none">
+              <Image src={imgLogo} alt="HDS" className="mobile-logo" />
+            </div>
             <div>
               {idPage === "login" && (
                 <>
@@ -233,7 +250,10 @@ const FormC = ({ idPage }) => {
                   : handleChangeLoginForm
               }
             >
-              <Form.Group className="mb-3" controlId="formBasicName">
+              <Form.Group
+                className="form-group-custom"
+                controlId="formBasicName"
+              >
                 <Form.Label>Nombre de usuario </Form.Label>
                 <Form.Control
                   type="text"
@@ -253,7 +273,10 @@ const FormC = ({ idPage }) => {
               </Form.Group>
 
               {idPage === "register" && (
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group
+                  className="form-group-custom"
+                  controlId="formBasicEmail"
+                >
                   <Form.Label>Correo </Form.Label>
                   <Form.Control
                     type="email"
@@ -271,7 +294,7 @@ const FormC = ({ idPage }) => {
               )}
 
               <Form.Group
-                className={idPage === "login" ? "mb-1" : "mb-3"}
+                className={idPage === "login" ? "mb-1" : "form-group-custom"}
                 controlId="formBasicPassword1"
               >
                 <Form.Label>Contraseña</Form.Label>
@@ -338,27 +361,43 @@ const FormC = ({ idPage }) => {
               )}
 
               <Button variant="primary" type="submit" className="btn-login">
-                {idPage === "register" ? "Registrarme" : "Iniciar sesión"}
+                {loading ? (
+                  <>
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />{" "}
+                    Enviando...
+                  </>
+                ) : idPage === "register" ? (
+                  "Registrarme"
+                ) : (
+                  "Iniciar sesión"
+                )}
               </Button>
-              <div className="social-login-container">
+
+              <div className="social-login-container ">
                 <div className="separator">
                   <span>o continúa con</span>
                 </div>
 
                 <div className="social-buttons">
                   <Button variant="light" className="social-btn">
-                    <FcGoogle size={20} />
-                    <span>Google</span>
+                    <FcGoogle className="icon-btn-form" />
+                    <span className="d-none d-lg-flex">Google</span>
                   </Button>
 
                   <Button variant="light" className="social-btn">
-                    <FaFacebookF color="#1877F2" size={20} />
-                    <span>Facebook</span>
+                    <FaFacebookF color="#1877F2" className="icon-btn-form" />
+                    <span className="d-none d-lg-flex">Facebook</span>
                   </Button>
 
                   <Button variant="light" className="social-btn">
-                    <FaGithub color="#ffffff" size={20} />
-                    <span>Github</span>
+                    <FaGithub color="#ffffff" className="icon-btn-form" />
+                    <span className="d-none d-lg-flex">Github</span>
                   </Button>
                 </div>
               </div>
